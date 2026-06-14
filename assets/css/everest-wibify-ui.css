@@ -593,6 +593,10 @@ html[lang="zh"] .everest-root .cta-title .title-accent {
   color: var(--gold, #c8a45a);
 }
 
+.everest-root .contact-checkbox input[type="checkbox"] {
+  accent-color: var(--gold, #c8a45a);
+}
+
 .everest-root .contact-checkbox.is-invalid input {
   outline: 1px solid rgba(200, 164, 90, 0.55);
   outline-offset: 2px;

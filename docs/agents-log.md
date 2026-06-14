@@ -2,6 +2,11 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Form: Tilda captcha + anti double-submit
+
+- **Decision:** Live error was Tilda `needcaptcha` JSON (anti-spam), not page reload. Fix: parse `needcaptcha`, open `tildaForm.addTildaCaptcha`, patch `t_forms__submitEvent` on bridge to retry fetch (no reload). Mutex on `handleEverestFormSubmit`. Checkbox `accent-color` gold.
+- **Files:** `tilda/js/everest-app.js`, `assets/css/everest-wibify-ui.css`
+
 ## 2026-06-14 — Form: direct Tilda fetch (no reload, no bridge submit)
 
 - **Decision:** `tildaForm.send` + bridge `submit` guard caused instant page reload and lost emails. Replaced with `t_forms__getFormData` + `fetch` to `https://forms.tildaapi.com/procces/` — no DOM submit, no reload. Everest buttons `type="button"` + capture `preventDefault` on `.contact-form`.
