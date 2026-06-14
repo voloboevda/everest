@@ -2,6 +2,11 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Form fix: Tilda phonemask + real success check
+
+- **Decision:** Live test showed fake success while Tilda rejected Phone (`Value is too short` — phonemask). Fix: phone → Comments only, bridge hidden off-screen (not `display:none`), await Tilda `.js-successbox` before showing success.
+- **Files:** `tilda/js/everest-app.js`, `tilda/css/everest-site.css`
+
 ## 2026-06-14 — Form: Tilda bridge re-enabled (test email)
 
 - **Decision:** User deleted old hidden form block `rec2091691681`. Re-enabled submit via auto-detect of native Tilda `form[id^="form"]` outside `.everest-root`; hide parent `rec*` via JS + `[data-everest-tilda-bridge]`. `tildaFormRequired: true` — no fake success without bridge. Test notifications: `itstabaluga@gmail.com`.

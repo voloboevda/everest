@@ -134,7 +134,15 @@
       : form.closest('[id^="rec"]');
     if (!rec) return;
     rec.setAttribute("data-everest-tilda-bridge", "hidden");
-    rec.style.setProperty("display", "none", "important");
+    rec.style.setProperty("position", "fixed", "important");
+    rec.style.setProperty("left", "-10000px", "important");
+    rec.style.setProperty("top", "0", "important");
+    rec.style.setProperty("width", "1px", "important");
+    rec.style.setProperty("height", "1px", "important");
+    rec.style.setProperty("overflow", "hidden", "important");
+    rec.style.setProperty("opacity", "0", "important");
+    rec.style.setProperty("pointer-events", "none", "important");
+    rec.style.setProperty("display", "block", "important");
   }
 
   function setTildaField(form, names, value) {
@@ -144,12 +152,54 @@
       if (!input) continue;
       input.value = value || "";
       input.dispatchEvent(new Event("input", { bubbles: true }));
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+      input.dispatchEvent(new Event("blur", { bubbles: true }));
       return true;
     }
     return false;
   }
 
-  function copyToTildaForm(data) {
+  function getTildaFormErrors(form) {
+    return Array.prototype.map.call(
+      form.querySelectorAll(".t-input-error"),
+      function (el) {
+        return (el.textContent || "").trim();
+      }
+    ).filter(Boolean);
+  }
+
+  function isTildaFormSuccess(form) {
+    var box = form.querySelector(".js-successbox");
+    if (!box) return false;
+    return box.style.display !== "none" && getComputedStyle(box).display !== "none";
+  }
+
+  function waitForTildaFormResult(form, timeoutMs) {
+    var deadline = Date.now() + (timeoutMs || 8000);
+    return new Promise(function (resolve) {
+      function poll() {
+        if (isTildaFormSuccess(form)) {
+          resolve(true);
+          return;
+        }
+        var errors = getTildaFormErrors(form);
+        if (errors.length) {
+          console.warn("Everest: Tilda bridge validation:", errors.join("; "));
+          resolve(false);
+          return;
+        }
+        if (Date.now() >= deadline) {
+          console.warn("Everest: Tilda bridge submit timeout");
+          resolve(false);
+          return;
+        }
+        window.setTimeout(poll, 120);
+      }
+      poll();
+    });
+  }
+
+  async function copyToTildaForm(data) {
     var form = getTildaBridgeForm();
     if (!form) return false;
 
@@ -158,22 +208,22 @@
     setTildaField(form, ["Company", "company"], data.company);
     setTildaField(form, ["Country", "country"], "");
     setTildaField(form, ["Email", "email"], data.email);
-    var phoneMapped = setTildaField(form, ["Phone", "phone"], data.phone);
+    // Skip Phone on bridge — Tilda phonemask rejects programmatic values; phone goes to Comments.
+    setTildaField(form, ["Phone", "phone"], "");
     setTildaField(
       form,
       ["Message", "message", "Comments", "comments", "form"],
-      buildMessageBody(data, { skipPhone: phoneMapped })
+      buildMessageBody(data)
     );
 
     var consent = form.querySelector('[name="Consent"], [name="consent"]');
     if (consent) consent.checked = !!data.consent;
 
     var submit = form.querySelector('button[type="submit"], .t-submit');
-    if (submit) {
-      submit.click();
-      return true;
-    }
-    return false;
+    if (!submit) return false;
+
+    submit.click();
+    return waitForTildaFormResult(form, 8000);
   }
 
   async function postWebhook(data) {
@@ -283,10 +333,10 @@
         });
 
         try {
-          var viaTilda = copyToTildaForm(data);
+          var viaTilda = await copyToTildaForm(data);
           if (CFG.tildaFormRequired && !viaTilda) {
             setFormStatus(form, t("form_error"), "error");
-            console.error("Everest: Tilda bridge form not found. Add native form block on page.");
+            console.error("Everest: Tilda bridge submit failed. Check form notifications in Tilda.");
             return;
           }
           await postWebhook(payload);

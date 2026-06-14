@@ -1618,7 +1618,15 @@ html[lang="zh"] .everest-root .hero-title--display .hero-accent {
   }
 }
 
-/* Hide native Tilda bridge form (JS also hides parent rec block) */
+/* Hide native Tilda bridge form off-screen (display:none breaks Tilda submit) */
 [data-everest-tilda-bridge="hidden"] {
-  display: none !important;
+  position: fixed !important;
+  left: -10000px !important;
+  top: 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  display: block !important;
 }
