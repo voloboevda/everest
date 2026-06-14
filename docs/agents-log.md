@@ -2,6 +2,12 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Form: Tilda bridge re-enabled (test email)
+
+- **Decision:** User deleted old hidden form block `rec2091691681`. Re-enabled submit via auto-detect of native Tilda `form[id^="form"]` outside `.everest-root`; hide parent `rec*` via JS + `[data-everest-tilda-bridge]`. `tildaFormRequired: true` — no fake success without bridge. Test notifications: `itstabaluga@gmail.com`.
+- **Files:** `tilda/js/everest-app.js`, `tilda/embed-head.html`, `tilda/css/everest-site.css`, `docs/tilda-deploy-guide.md`, `docs/tilda-embed-guide.md`
+- **User action:** Add Form block BF204N in Tilda (Email, Name, Phone, Comments); set email in Form notifications, publish, re-paste blocks 1+3. JS maps Phone + Comments field names from standard Tilda block.
+
 ## 2026-06-14 — Expertise img swap + sector tag alignment
 
 - **Decision:** Swapped expertise card images 1↔4 (`exp-deal` / `exp-finance`). Sector tag chips left-aligned with title (removed right padding on tag list, explicit flex-start). Globe untouched.

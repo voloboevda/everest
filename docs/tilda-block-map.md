@@ -11,7 +11,7 @@
 |----------|------|------|--------|
 | `rec2091586451` | T123 | Inline dark CSS (~1500 lines), Inter/Manrope, canvas particles | **Replace** with `tilda/embed-head.html` + light CSS |
 | `rec2091603121` | T123 | Full HTML page (main content) | **Replace** with `tilda/embed-body-v2.html` or `tilda/t123-single.html` |
-| `rec2091691681` | T678 | Native Tilda form (EN labels, duplicate) | **Hide** — used as submit target for custom form via JS |
+| `rec2091691681` | T678 | Native Tilda form (EN labels, duplicate) | **Re-add** — hidden bridge for custom form submit (old ID; live may use new `rec*`) |
 
 ## Gap vs customer brief
 

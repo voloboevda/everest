@@ -84,10 +84,12 @@
     if (y) y.textContent = String(new Date().getFullYear());
   }
 
-  function buildMessageBody(data) {
+  function buildMessageBody(data, opts) {
     var parts = [];
-    if (data.phone) parts.push("Phone: " + data.phone);
+    var skipPhone = opts && opts.skipPhone;
+    if (data.phone && !skipPhone) parts.push("Phone: " + data.phone);
     if (data.website) parts.push("Website: " + data.website);
+    if (data.company) parts.push("Company: " + data.company);
     if (data.message) {
       if (parts.length) parts.push("---");
       parts.push(data.message);
@@ -108,28 +110,62 @@
     };
   }
 
+  function getTildaBridgeForm() {
+    if (CFG.tildaFormSelector) {
+      var target = document.querySelector(CFG.tildaFormSelector);
+      if (target) return target.tagName === "FORM" ? target : target.querySelector("form");
+    }
+
+    var forms = document.querySelectorAll('form[id^="form"]');
+    for (var i = 0; i < forms.length; i++) {
+      var candidate = forms[i];
+      if (candidate.closest(".everest-root")) continue;
+      var hasEmail = candidate.querySelector('[name="Email"], [name="email"]');
+      var hasName = candidate.querySelector('[name="name"], [name="Name"]');
+      if (hasEmail && hasName) return candidate;
+    }
+    return null;
+  }
+
+  function hideTildaBridgeBlock(form) {
+    if (!form) return;
+    var rec = CFG.tildaFormRecId
+      ? document.getElementById(CFG.tildaFormRecId)
+      : form.closest('[id^="rec"]');
+    if (!rec) return;
+    rec.setAttribute("data-everest-tilda-bridge", "hidden");
+    rec.style.setProperty("display", "none", "important");
+  }
+
+  function setTildaField(form, names, value) {
+    var list = Array.isArray(names) ? names : [names];
+    for (var i = 0; i < list.length; i++) {
+      var input = form.querySelector('[name="' + list[i] + '"]');
+      if (!input) continue;
+      input.value = value || "";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+      return true;
+    }
+    return false;
+  }
+
   function copyToTildaForm(data) {
-    var form = document.querySelector(CFG.tildaFormSelector || "#form2091691681");
+    var form = getTildaBridgeForm();
     if (!form) return false;
 
     var fullName = [data.firstName, data.lastName].filter(Boolean).join(" ");
-    var map = {
-      name: fullName,
-      Company: data.company,
-      Country: "",
-      Email: data.email,
-      Message: buildMessageBody(data),
-    };
+    setTildaField(form, ["name", "Name"], fullName);
+    setTildaField(form, ["Company", "company"], data.company);
+    setTildaField(form, ["Country", "country"], "");
+    setTildaField(form, ["Email", "email"], data.email);
+    var phoneMapped = setTildaField(form, ["Phone", "phone"], data.phone);
+    setTildaField(
+      form,
+      ["Message", "message", "Comments", "comments", "form"],
+      buildMessageBody(data, { skipPhone: phoneMapped })
+    );
 
-    Object.keys(map).forEach(function (name) {
-      var input = form.querySelector('[name="' + name + '"]');
-      if (input) {
-        input.value = map[name] || "";
-        input.dispatchEvent(new Event("input", { bubbles: true }));
-      }
-    });
-
-    var consent = form.querySelector('[name="Consent"]');
+    var consent = form.querySelector('[name="Consent"], [name="consent"]');
     if (consent) consent.checked = !!data.consent;
 
     var submit = form.querySelector('button[type="submit"], .t-submit');
@@ -212,6 +248,8 @@
   }
 
   function initForm() {
+    hideTildaBridgeBlock(getTildaBridgeForm());
+
     document.querySelectorAll(".contact-form").forEach(function (form) {
       form.addEventListener("input", function (e) {
         var el = e.target;
@@ -246,6 +284,11 @@
 
         try {
           var viaTilda = copyToTildaForm(data);
+          if (CFG.tildaFormRequired && !viaTilda) {
+            setFormStatus(form, t("form_error"), "error");
+            console.error("Everest: Tilda bridge form not found. Add native form block on page.");
+            return;
+          }
           await postWebhook(payload);
           if (window.everestTrackRfqSubmit) window.everestTrackRfqSubmit();
           setFormStatus(form, t("form_success"), "success");

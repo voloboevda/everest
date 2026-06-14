@@ -22,6 +22,10 @@ python3 -m http.server 8080
 # open http://localhost:8080/preview.html
 ```
 
-## Form (paused)
+## Form (Tilda bridge)
 
-UI renders; Tilda submit not wired yet (`tildaFormSelector: ""`).
+Custom UI: modal `#contact-form` + block `#request-form`. Submit goes through **hidden native Tilda form** (email from Tilda notifications).
+
+1. Add Form block on page (see `docs/tilda-deploy-guide.md`).
+2. Test email: `itstabaluga@gmail.com`.
+3. Config in block 1: `tildaFormRequired: true`, `tildaFormSelector: ""` (auto-detect).

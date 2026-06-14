@@ -1618,7 +1618,7 @@ html[lang="zh"] .everest-root .hero-title--display .hero-accent {
   }
 }
 
-/* Hide duplicate native Tilda form block */
-#rec2091691681 {
+/* Hide native Tilda bridge form (JS also hides parent rec block) */
+[data-everest-tilda-bridge="hidden"] {
   display: none !important;
 }

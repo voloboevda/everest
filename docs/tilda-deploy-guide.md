@@ -43,7 +43,30 @@ On page https://lovingly-nominal-crow.tilda.ws/:
 4. **Publish** (code runs only on published site, not in editor preview)
 5. Check RU / ENG / CHI + mobile
 
-**Form:** not connected yet. UI visible; submit shows message only. Tilda form block can be added later.
+**Form:** add hidden native Tilda form block (see below), set notification email, re-paste block 1 + 3 after `./scripts/build-tilda-paste.sh`.
+
+### Form block (4th block on page)
+
+1. In Tilda editor: **+ Add block → Form** (any simple template).
+2. Place it **below** the three T123 blocks (order does not matter — JS hides it).
+3. **Form fields** — set **variable names** exactly (Field settings → Variable):
+
+| Label (any language) | Variable name | Required |
+|------------------------|---------------|----------|
+| Name | `name` | yes |
+| Email | `Email` | yes |
+| Company | `Company` | no |
+| Country | `Country` | no |
+| Message | `Message` | no |
+| Consent | `Consent` | no (checkbox) |
+
+4. **Form → Notifications:** email `itstabaluga@gmail.com` (test) or production address.
+5. **Publish** the page.
+6. Re-paste **block 1** and **block 3** from latest `paste-block-*.html` (config + `everest-app.js`).
+
+JS auto-finds `form[id^="form"]` outside `.everest-root`, copies custom form data, clicks Tilda submit, hides parent `rec*` block. If bridge form is missing, user sees error (not fake success).
+
+Optional override in `__EVEREST_CONFIG`: `tildaFormSelector: "#form123"`, `tildaFormRecId: "rec123"`.
 
 ## Alternative: Site Settings instead of block 1 and 3
 
