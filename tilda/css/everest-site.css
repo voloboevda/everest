@@ -1713,7 +1713,7 @@ html.everest-captcha-open {
 }
 
 .everest-captcha-title {
-  margin: 0 0 0.75rem;
+  margin: 0;
   font-size: clamp(1.375rem, 4vw, 1.625rem);
   font-weight: 600;
   line-height: 1.15;
@@ -1726,13 +1726,6 @@ html.everest-captcha-open {
   font-style: italic;
   font-weight: 400;
   color: var(--accent, #3d7f96);
-}
-
-.everest-captcha-sub {
-  margin: 0;
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  color: rgba(245, 245, 245, 0.55);
 }
 
 .everest-captcha-close {
@@ -1792,12 +1785,24 @@ html.everest-captcha-open {
   top: auto !important;
   width: 100% !important;
   max-width: 20rem !important;
-  min-height: 7.5rem !important;
-  height: 7.5rem !important;
+  min-height: 11.5rem !important;
+  height: auto !important;
   margin: 0 !important;
   border: none !important;
   border-radius: 0 !important;
   overflow: hidden !important;
   background: transparent !important;
   box-shadow: none !important;
+}
+
+#captchaIframeBox iframe,
+.everest-captcha-widget #captchaIframeBox iframe {
+  display: block !important;
+  width: 100% !important;
+  max-width: 20rem !important;
+  min-height: 11.5rem !important;
+  height: 11.5rem !important;
+  margin: 0 auto !important;
+  border: 0 !important;
+  overflow: hidden !important;
 }

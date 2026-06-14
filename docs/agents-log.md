@@ -2,6 +2,16 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Sector tags: beat Tilda `#allrecords ul` padding
+
+- **Decision:** Live misalignment (tags 20px right of title) caused by Tilda global `#allrecords ul { padding-left: 20px }` beating `.everest-root--v2` class rules. Fixed with `#allrecords .everest-root--v2 .sector-card-v2__tags` (+ expertise tags) explicit `padding: 0; padding-inline-start: 0; margin: 0`.
+- **Files:** `tilda/css/everest-site-v2.css`
+
+## 2026-06-14 — Captcha overlay v3: no subtitle, no iframe scroll
+
+- **Decision:** User rejected subtitle about staying on site; title only («Подтвердите отправку»). Yandex SmartCaptcha cannot be swapped (Tilda anti-spam) — fixed cramped iframe (was 7.5rem) to 11.5rem / 184px so checkbox widget shows without internal scrollbar.
+- **Files:** `tilda/js/everest-app.js`, `tilda/js/everest-i18n.js`, `tilda/css/everest-site.css`
+
 ## 2026-06-14 — Form: fix Tilda captcha ERROR 3 (wrong formskey)
 
 - **Decision:** Instant white screen `ERROR 3` was broken Tilda captcha iframe — wrong `tildaspec-formskey` (used form id `2378655331` instead of page key from `#allrecords[data-tilda-formskey]`). Fix `getTildaFormKey()` + inject `tildaspec-formskey` into fetch payload.

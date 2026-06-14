@@ -407,10 +407,6 @@
       title.className = "everest-captcha-title";
       title.innerHTML = t("form_captcha_title");
 
-      var sub = document.createElement("p");
-      sub.className = "everest-captcha-sub";
-      sub.textContent = t("form_captcha_sub");
-
       var widget = document.createElement("div");
       widget.className = "everest-captcha-widget";
       widget.appendChild(iframe);
@@ -418,14 +414,37 @@
       top.appendChild(closeBtn);
       top.appendChild(eyebrow);
       top.appendChild(title);
-      top.appendChild(sub);
       card.appendChild(top);
       card.appendChild(widget);
       box.innerHTML = "";
       box.appendChild(card);
     }
 
+    fitEverestCaptchaIframe();
+    window.setTimeout(fitEverestCaptchaIframe, 120);
+    window.setTimeout(fitEverestCaptchaIframe, 400);
+
     if (everestUiForm) setFormStatus(everestUiForm, t("form_captcha_wait"), "pending");
+  }
+
+  function fitEverestCaptchaIframe() {
+    var box = document.getElementById("captchaIframeBox");
+    if (!box) return;
+
+    box.style.overflow = "hidden";
+    box.style.height = "auto";
+    box.style.minHeight = "11.5rem";
+
+    var inner = box.querySelector("iframe");
+    if (!inner) return;
+
+    inner.style.display = "block";
+    inner.style.width = "100%";
+    inner.style.maxWidth = "20rem";
+    inner.style.height = "184px";
+    inner.style.minHeight = "184px";
+    inner.style.border = "0";
+    inner.setAttribute("scrolling", "no");
   }
 
   function submitTildaBridgeWithCaptcha(form, everestUiForm) {

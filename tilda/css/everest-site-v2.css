@@ -437,14 +437,17 @@
   font-weight: 400;
 }
 
-.everest-root--v2 .stack-cards--expertise .expertise-card-v2__tags {
+.everest-root--v2 .stack-cards--expertise .expertise-card-v2__tags,
+#allrecords .everest-root--v2 .stack-cards--expertise .expertise-card-v2__tags {
   display: block;
   width: 100%;
   max-width: 100%;
   margin: 0.2rem 0 0;
   padding: 0;
+  padding-inline-start: 0;
   text-align: left;
   line-height: 1.5;
+  list-style: none;
 }
 
 .everest-root--v2 .stack-cards--expertise .expertise-card-v2__tags li {
@@ -504,10 +507,12 @@ html[lang="en"] .everest-root--v2 .stack-cards--expertise .expertise-card-v2__ta
   }
 }
 
-.everest-root--v2 .expertise-card-v2__tags {
+.everest-root--v2 .expertise-card-v2__tags,
+#allrecords .everest-root--v2 .expertise-card-v2__tags {
   display: block;
   margin: 0;
   padding: 0;
+  padding-inline-start: 0;
   list-style: none;
   text-align: left;
 }
@@ -762,11 +767,13 @@ html[lang="en"] .everest-root--v2 .stack-cards--expertise .expertise-card-v2__ta
   max-width: 28rem;
 }
 
-.everest-root--v2 .sector-card-v2__tags {
+.everest-root--v2 .sector-card-v2__tags,
+#allrecords .everest-root--v2 .sector-card-v2__tags {
   position: relative;
   z-index: 1;
   margin: 0;
   padding: 0;
+  padding-inline-start: 0;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
