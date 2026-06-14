@@ -327,11 +327,14 @@ html[lang="zh"] .everest-root .cta-title .title-accent {
 
 .everest-root .section-title--display .title-accent--blue,
 .everest-root .cta-title .title-accent--blue,
-.everest-root .hero-title--display .hero-accent--blue,
+.everest-root .hero-title--display .hero-accent--blue {
+  color: var(--accent);
+}
+
 .everest-root .section-title--display .title-accent--gold,
 .everest-root .cta-title .title-accent--gold,
 .everest-root .hero-title--display .hero-accent--gold {
-  color: var(--accent);
+  color: var(--gold, #c8a45a);
 }
 
 .everest-root .section-header .section-subtitle {
@@ -369,16 +372,16 @@ html[lang="zh"] .everest-root .cta-title .title-accent {
   will-change: transform, opacity;
 }
 
-/* Teal glow — top-right (replaces gold orb; single accent) */
+/* Gold — top-right, near beam (subtle over image) */
 .everest-root .hero-glow__orb--gold {
   top: -22%;
   right: 4%;
   left: auto;
   background: radial-gradient(
     circle at 48% 42%,
-    rgba(61, 127, 150, 0.38) 0%,
-    rgba(61, 127, 150, 0.18) 34%,
-    rgba(61, 127, 150, 0.06) 52%,
+    rgba(232, 210, 150, 0.58) 0%,
+    rgba(200, 164, 90, 0.32) 34%,
+    rgba(200, 164, 90, 0.1) 52%,
     transparent 72%
   );
   filter: blur(40px);

@@ -2,6 +2,36 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Expertise PNGs: transparent bg (cards 01, 04, 06)
+
+- **Decision:** Cards 02–03 looked seamless (RGBA PNG); 01/04/06 were JPEG with opaque black → visible square on card. Processed `exp-finance`, `exp-deal`, `exp-analytics` → true RGBA PNG (~73–88% transparent), same as import/logistics/contract. Script: `scripts/process-expertise-images.py`.
+- **Files:** `assets/img/expertise/exp-finance.png`, `exp-deal.png`, `exp-analytics.png`, `scripts/process-expertise-images.py`
+
+## 2026-06-14 — Expertise illustration: static, larger, no blend
+
+- **Decision:** User — spotty look + unwanted hover zoom on stack images. Removed `mix-blend-mode`, radial mask, filters, transitions and hover scale. Image static at 92% (90% mobile), `object-fit: contain`.
+- **Files:** `tilda/css/everest-site-v2.css`
+
+## 2026-06-14 — Modal eyebrow: gold like «Брифинг»
+
+- **Decision:** RFQ modal `КОНТАКТ` eyebrow — add `cta-form-eyebrow--accent` (same gold `#C8A45A` as block [07] «Брифинг»); base `.cta-form-eyebrow` stays muted gray.
+- **Files:** `tilda/embed-body-v2.html`, `tilda/t123-single.html`, `tilda/paste-block-2-body.html`
+
+## 2026-06-14 — Expertise stack card: smaller + flat bg
+
+- **Decision:** User — card slightly too tall; visible PNG square / two-tone panel. Height `clamp(280px, 34vh, 360px)` + `max-height: min(360px, calc(100dvh - 148px))`. Single token `--expertise-card-bg: rgba(8, 11, 16, 0.92)` on card/body/visual; removed teal gradient overlay; illustration `contain` + `screen` blend + radial mask (no full-bleed cover).
+- **Files:** `tilda/css/everest-site-v2.css`
+
+## 2026-06-14 — Cooperation [06]: inset first two list rows
+
+- **Decision:** Coop list — all four rows per column get same `margin-left: 0.65rem` (bar + text shift together); fixes top-two vs bottom-two misalignment.
+- **Files:** `tilda/css/everest-site-v2.css`
+
+## 2026-06-14 — Restore blue+gold rhythm; expertise image bleed
+
+- **Decision:** User rejected site-wide single teal — restored blue `#3D7F96` + gold `#C8A45A` in section/hero accents and sector hovers. Step counter: gold current + blue total (full opacity). Expertise stack: image `cover` + card-matched bg, no visible PNG square.
+- **Files:** `tilda/css/everest-site-v2.css`, `assets/css/everest-wibify-ui.css`, `tilda/css/everest-site.css`
+
 ## 2026-06-14 — Hero CTA: revert solid accent (user preference)
 
 - **Decision:** User rejected teal fill on hero «Отправить запрос» — restored default dark shiny CTA (same as before `54ea6d8`).
