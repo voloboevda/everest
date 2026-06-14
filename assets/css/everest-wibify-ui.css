@@ -129,6 +129,33 @@
   opacity: 0.28;
 }
 
+/* Hero primary CTA — solid accent fill (only this button) */
+.everest-root .hero-buttons .hero-cta.shiny-cta {
+  --shiny-cta-bg: #3d7f96;
+  --shiny-cta-bg-subtle: rgba(255, 255, 255, 0.2);
+  --shiny-cta-highlight: #4f8fa8;
+  --shiny-cta-highlight-subtle: #6aadbf;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 10px 36px rgba(61, 127, 150, 0.42);
+}
+
+.everest-root .hero-buttons .hero-cta.shiny-cta::before,
+.everest-root .hero-buttons .hero-cta.shiny-cta::after {
+  opacity: 0.5;
+}
+
+.everest-root .hero-buttons .hero-cta.shiny-cta:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.45);
+}
+
+.everest-root .hero-buttons .hero-cta.shiny-cta:is(:hover, :focus-visible) {
+  --shiny-cta-bg: #468da6;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 14px 40px rgba(61, 127, 150, 0.5);
+}
+
 /* Shiny CTA — see assets/css/shiny-button.css (21.dev exact port) */
 
 /* Lang switcher — menu + footer */

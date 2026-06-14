@@ -2,6 +2,11 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Hero CTA: solid accent fill
+
+- **Decision:** User flagged hero «Отправить запрос» too muted (dark grey shiny). Only `.hero-buttons .hero-cta.shiny-cta` → solid teal `#3D7F96` fill + glow; nav/form shiny CTAs unchanged.
+- **Files:** `assets/css/everest-wibify-ui.css`
+
 ## 2026-06-14 — UX batch: no stack smoke, one accent, tag align !important
 
 - **Decision:** User fatigue — expertise stack dim/scale (0.6/0.1 «smoke») disabled (`data-stack-dim="0"`, `data-stack-scale="0"`). All heading gold accents → teal `#3D7F96`; hero gold orb → teal; sector hovers teal not gold. Tilda `#allrecords ul` padding beaten with `!important` on tag lists. Paste blocks rebuilt.
