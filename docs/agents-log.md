@@ -6,7 +6,7 @@ Chronological decisions for Everest Trade web project.
 
 - **Decision:** Tilda removed file storage. All assets served from public GitHub repo via jsDelivr. Three T123 paste blocks: head / body / footer. Form integration paused (`tildaFormSelector: ""`).
 - **Files:** `scripts/build-tilda-paste.sh`, `docs/tilda-deploy-guide.md`, `tilda/embed-head.html`, `docs/tilda-embed-guide.md`, `README.md`
-- **Outputs:** `tilda/paste-block-1-head.html`, `paste-block-2-body.html`, `paste-block-3-footer.html` (built after `build-tilda-paste.sh USER`)
+- **Next:** Paste `paste-block-1/2/3.html` into Tilda T123 blocks. Repo: https://github.com/voloboevda/everest CDN: `https://cdn.jsdelivr.net/gh/voloboevda/everest@main`
 
 ## 2026-06-14 — Repo cleanup + v2-only production path
 
