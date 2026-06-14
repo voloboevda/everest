@@ -1109,6 +1109,27 @@ html[lang="zh"] .everest-root .cta-title .title-accent {
   }
 }
 
+@media (hover: none), (max-width: 768px) {
+  .everest-root .menu-list .text-roll--chars {
+    display: inline;
+  }
+
+  .everest-root .menu-list .text-roll-char {
+    display: inline;
+    overflow: visible;
+    height: auto;
+  }
+
+  .everest-root .menu-list .text-roll-char-top {
+    display: inline;
+    height: auto;
+  }
+
+  .everest-root .menu-list .text-roll-char-bottom {
+    display: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .everest-root .menu-list-item,
   .everest-root .menu-foot {

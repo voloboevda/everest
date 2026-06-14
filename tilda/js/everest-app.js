@@ -18,6 +18,8 @@
       var label = el.querySelector(".btn-text");
       if (label) {
         label.textContent = t(key);
+      } else if (el.classList.contains("text-roll")) {
+        el.setAttribute("data-roll-text", t(key));
       } else {
         el.textContent = t(key);
       }
