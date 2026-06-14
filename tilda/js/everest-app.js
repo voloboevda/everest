@@ -187,33 +187,111 @@
 
   function isTildaFormSuccess(form) {
     var box = form.querySelector(".js-successbox");
-    if (!box) return false;
-    return box.style.display !== "none" && getComputedStyle(box).display !== "none";
+    if (box && box.style.display !== "none" && getComputedStyle(box).display !== "none") {
+      return true;
+    }
+    return isTildaGlobalSuccess();
   }
 
-  function waitForTildaFormResult(form, timeoutMs) {
-    var deadline = Date.now() + (timeoutMs || 10000);
-    var errorsAfter = Date.now() + 600;
+  function isTildaGlobalSuccess() {
+    var popup = document.querySelector(
+      ".t-popup.t-popup_show, .t-popup_show, .t-form-success-popup.t-popup_show, .t-form-success-popup_show"
+    );
+    if (popup && popup.offsetParent !== null) return true;
+
+    var nodes = document.querySelectorAll(".t-popup, .t-form-success-popup, .t-overlay");
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      if (getComputedStyle(node).display === "none" || getComputedStyle(node).visibility === "hidden") {
+        continue;
+      }
+      var text = (node.textContent || "").toLowerCase();
+      if (
+        text.indexOf("спасибо") !== -1 ||
+        text.indexOf("thank") !== -1 ||
+        text.indexOf("успешно отправлен") !== -1 ||
+        text.indexOf("successfully") !== -1
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function dismissTildaSuccessUi() {
+    document.querySelectorAll(
+      ".t-popup__close, .t-popup .t-close, .t-form-success-popup .t-btn, .t-form-success-popup button"
+    ).forEach(function (btn) {
+      try {
+        btn.click();
+      } catch (e) {}
+    });
+    document.querySelectorAll(".t-popup, .t-form-success-popup, .t-overlay").forEach(function (el) {
+      el.classList.remove("t-popup_show");
+      el.style.display = "none";
+    });
+  }
+
+  function sawTildaFormNetworkSuccess(sinceMs) {
+    if (!window.performance || !performance.getEntriesByType) return false;
+    var entries = performance.getEntriesByType("resource");
+    for (var i = entries.length - 1; i >= 0; i--) {
+      var entry = entries[i];
+      if (entry.startTime < sinceMs) break;
+      if (!/\/forms\.tildacdn\.com\/|\/api\/forms\//i.test(entry.name)) continue;
+      if (!entry.responseStatus || entry.responseStatus < 200 || entry.responseStatus >= 400) continue;
+      return true;
+    }
+    return false;
+  }
+
+  function waitForTildaFormResult(form, timeoutMs, startedAt) {
+    var deadline = Date.now() + (timeoutMs || 12000);
+    var errorsAfter = Date.now() + 1200;
+    var perfSince = typeof startedAt === "number" ? startedAt : performance.timeOrigin || 0;
+    var resolved = false;
+
     return new Promise(function (resolve) {
-      function poll() {
-        if (isTildaFormSuccess(form)) {
-          resolve(true);
-          return;
+      function finish(ok) {
+        if (resolved) return;
+        resolved = true;
+        observer.disconnect();
+        document.body.classList.remove("everest-rfq-pending");
+        if (ok) dismissTildaSuccessUi();
+        resolve(ok);
+      }
+
+      function check() {
+        if (isTildaFormSuccess(form) || sawTildaFormNetworkSuccess(perfSince)) {
+          finish(true);
         }
+      }
+
+      var observer = new MutationObserver(check);
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["class", "style"],
+      });
+
+      function poll() {
+        check();
+        if (resolved) return;
         if (Date.now() >= errorsAfter) {
           var errors = getTildaFormErrors(form);
           if (errors.length) {
             console.warn("Everest: Tilda bridge validation:", errors.join("; "));
-            resolve(false);
+            finish(false);
             return;
           }
         }
         if (Date.now() >= deadline) {
           console.warn("Everest: Tilda bridge submit timeout");
-          resolve(false);
+          finish(false);
           return;
         }
-        window.setTimeout(poll, 150);
+        window.setTimeout(poll, 120);
       }
       poll();
     });
@@ -243,12 +321,15 @@
     var submit = form.querySelector('button[type="submit"], .t-submit');
     if (!submit) return false;
 
+    document.body.classList.add("everest-rfq-pending");
+    var perfMark = performance.now ? performance.now() : 0;
+
     if (typeof form.requestSubmit === "function") {
       form.requestSubmit(submit);
     } else {
       submit.click();
     }
-    return waitForTildaFormResult(form, 10000);
+    return waitForTildaFormResult(form, 12000, perfMark);
   }
 
   async function postWebhook(data) {

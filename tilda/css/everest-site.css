@@ -1630,3 +1630,11 @@ html[lang="zh"] .everest-root .hero-title--display .hero-accent {
   z-index: -1 !important;
   display: block !important;
 }
+
+/* During Everest RFQ submit, suppress native Tilda thank-you popup */
+body.everest-rfq-pending .t-popup,
+body.everest-rfq-pending .t-form-success-popup {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
