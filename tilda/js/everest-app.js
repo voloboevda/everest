@@ -97,18 +97,26 @@
     return parts.join("\n");
   }
 
+  function readField(form, name) {
+    var el = form.querySelector('[name="' + name + '"]');
+    return el && typeof el.value === "string" ? el.value.trim() : "";
+  }
+
   function readFormData(form) {
+    var consent = form.querySelector('[name="Consent"]');
     return {
-      firstName: (form.FirstName && form.FirstName.value.trim()) || "",
-      lastName: (form.LastName && form.LastName.value.trim()) || "",
-      email: (form.Email && form.Email.value.trim()) || "",
-      phone: (form.Phone && form.Phone.value.trim()) || "",
-      company: (form.Company && form.Company.value.trim()) || "",
-      website: (form.Website && form.Website.value.trim()) || "",
-      message: (form.Message && form.Message.value.trim()) || "",
-      consent: form.Consent && form.Consent.checked,
+      firstName: readField(form, "FirstName"),
+      lastName: readField(form, "LastName"),
+      email: readField(form, "Email"),
+      phone: readField(form, "Phone"),
+      company: readField(form, "Company"),
+      website: readField(form, "Website"),
+      message: readField(form, "Message"),
+      consent: !!(consent && consent.checked),
     };
   }
+
+  var bridgeSubmitQueue = Promise.resolve();
 
   function getTildaBridgeForm() {
     if (CFG.tildaFormSelector) {
@@ -232,6 +240,29 @@
     });
   }
 
+  function resetTildaBridgeForm(form) {
+    if (!form) return;
+    dismissTildaSuccessUi();
+
+    form.classList.remove("js-send-form-success", "t-form_success", "t-form_send");
+    var rec = form.closest('[id^="rec"]');
+    if (rec) {
+      rec.classList.remove("t-form_send", "t-form_success", "js-send-form-success");
+    }
+
+    form.querySelectorAll(".js-successbox, .t-form__successbox").forEach(function (box) {
+      box.style.display = "none";
+      box.style.visibility = "hidden";
+      box.setAttribute("aria-hidden", "true");
+    });
+    form.querySelectorAll(".js-errorbox, .t-form__errorbox").forEach(function (box) {
+      box.style.display = "none";
+    });
+
+    clearTildaFormErrors(form);
+    disableBridgePhoneField(form);
+  }
+
   function sawTildaFormNetworkSuccess(sinceMs) {
     if (!window.performance || !performance.getEntriesByType) return false;
     var entries = performance.getEntriesByType("resource");
@@ -250,6 +281,14 @@
     var errorsAfter = Date.now() + 1200;
     var perfSince = typeof startedAt === "number" ? startedAt : performance.timeOrigin || 0;
     var resolved = false;
+    var hadInlineSuccess = (function () {
+      var box = form.querySelector(".js-successbox");
+      return !!(
+        box &&
+        box.style.display !== "none" &&
+        getComputedStyle(box).display !== "none"
+      );
+    })();
 
     return new Promise(function (resolve) {
       function finish(ok) {
@@ -262,7 +301,20 @@
       }
 
       function check() {
-        if (isTildaFormSuccess(form) || sawTildaFormNetworkSuccess(perfSince)) {
+        if (sawTildaFormNetworkSuccess(perfSince)) {
+          finish(true);
+          return;
+        }
+        var box = form.querySelector(".js-successbox");
+        var inlineSuccess =
+          box &&
+          box.style.display !== "none" &&
+          getComputedStyle(box).display !== "none";
+        if (inlineSuccess && !hadInlineSuccess) {
+          finish(true);
+          return;
+        }
+        if (isTildaGlobalSuccess()) {
           finish(true);
         }
       }
@@ -297,12 +349,22 @@
     });
   }
 
-  async function copyToTildaForm(data) {
+  function buildBridgeComments(data, sourceForm) {
+    var parts = [];
+    if (sourceForm) parts.push("Source: " + sourceForm);
+    var body = buildMessageBody(data);
+    if (body) {
+      if (parts.length) parts.push("---");
+      parts.push(body);
+    }
+    return parts.join("\n");
+  }
+
+  async function copyToTildaFormOnce(data, sourceForm) {
     var form = getTildaBridgeForm();
     if (!form) return false;
 
-    clearTildaFormErrors(form);
-    disableBridgePhoneField(form);
+    resetTildaBridgeForm(form);
 
     var fullName = [data.firstName, data.lastName].filter(Boolean).join(" ");
     setTildaField(form, ["name", "Name"], fullName);
@@ -312,7 +374,7 @@
     setTildaField(
       form,
       ["Message", "message", "Comments", "comments", "form"],
-      buildMessageBody(data)
+      buildBridgeComments(data, sourceForm)
     );
 
     var consent = form.querySelector('[name="Consent"], [name="consent"]');
@@ -325,11 +387,26 @@
     var perfMark = performance.now ? performance.now() : 0;
 
     if (typeof form.requestSubmit === "function") {
-      form.requestSubmit(submit);
+      try {
+        form.requestSubmit(submit);
+      } catch (e) {
+        submit.click();
+      }
     } else {
       submit.click();
     }
-    return waitForTildaFormResult(form, 12000, perfMark);
+
+    var ok = await waitForTildaFormResult(form, 12000, perfMark);
+    if (!ok) resetTildaBridgeForm(form);
+    return ok;
+  }
+
+  function copyToTildaForm(data, sourceForm) {
+    var job = bridgeSubmitQueue.then(function () {
+      return copyToTildaFormOnce(data, sourceForm);
+    });
+    bridgeSubmitQueue = job.catch(function () {});
+    return job;
   }
 
   async function postWebhook(data) {
@@ -441,7 +518,7 @@
         });
 
         try {
-          var viaTilda = await copyToTildaForm(data);
+          var viaTilda = await copyToTildaForm(data, form.id || "contact-form");
           if (CFG.tildaFormRequired && !viaTilda) {
             setFormStatus(form, t("form_error"), "error");
             console.error("Everest: Tilda bridge submit failed. Check form notifications in Tilda.");

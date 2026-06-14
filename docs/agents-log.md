@@ -2,6 +2,12 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Form: bridge reset for header vs block #7
+
+- **Decision:** Header modal (`#contact-form`) sent; block #7 (`#request-form`) failed after first success — Tilda bridge stayed in success state and ignored second submit. Fix: `resetTildaBridgeForm()` before each copy, serialized bridge queue, scoped `readFormData()` via `querySelector`, success detection only for new network/inline popup after reset. Comments include `Source: contact-form|request-form`.
+- **Files:** `tilda/js/everest-app.js`
+- **User action:** Commit + push branch, re-paste **block 1 + block 3** (CDN SHA updates), publish. Live site still on `cadcaf3` without `tildaFormSelector` — must refresh paste.
+
 ## 2026-06-14 — Form fix: Tilda phonemask + real success check
 
 - **Decision:** Live test showed fake success while Tilda rejected Phone (`Value is too short` — phonemask). Fix: phone → Comments only, bridge hidden off-screen (not `display:none`), await Tilda `.js-successbox` before showing success. Follow-up: removed `pointer-events:none` (blocked Tilda submit), hide Phone field in bridge DOM, pin `#form2378655331` / `rec2378655331`. Race fix: detect Tilda global success popup + network POST, suppress popup during submit, show only Everest form status.
