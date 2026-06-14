@@ -240,33 +240,83 @@
     });
   }
 
-  function initTildaBridgeGuard(form) {
-    if (!form || form.dataset.everestBridgeGuard) return;
-    form.dataset.everestBridgeGuard = "1";
-    form.addEventListener(
-      "submit",
-      function (e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-      },
-      true
-    );
+  function ensureHiddenField(form, name, value) {
+    var input = form.querySelector('[name="' + name + '"]');
+    if (!input) {
+      form.insertAdjacentHTML(
+        "beforeend",
+        '<input type="hidden" name="' + name + '" value="">'
+      );
+      input = form.querySelector('[name="' + name + '"]');
+    }
+    if (input) input.value = value == null ? "" : String(value);
   }
 
-  function triggerTildaBridgeSubmit(form, submit) {
-    if (window.tildaForm && typeof window.tildaForm.send === "function") {
-      window.tildaForm.send(form, submit);
-      return;
+  function ensureTildaSpecFields(form) {
+    var allRecords = document.getElementById("allrecords");
+    if (!allRecords || !window.tildaForm) return;
+
+    if (!form.querySelector('input[name="form-spec-comments"]')) {
+      form.insertAdjacentHTML(
+        "beforeend",
+        '<div style="position:absolute;left:-5000px;bottom:0;display:none"><input type="text" name="form-spec-comments" value="Its good" class="js-form-spec-comments" tabindex="-1"></div>'
+      );
     }
-    if (typeof form.requestSubmit === "function") {
-      try {
-        form.requestSubmit(submit);
-      } catch (e) {
-        submit.click();
-      }
-      return;
+
+    var specs = {
+      "tildaspec-cookie": document.cookie,
+      "tildaspec-referer": window.location.href,
+      "tildaspec-formid": form.getAttribute("id") || "",
+      "tildaspec-version-lib": window.tildaForm.versionLib || "",
+      "tildaspec-pageid": allRecords.getAttribute("data-tilda-page-id") || "",
+      "tildaspec-projectid": allRecords.getAttribute("data-tilda-project-id") || "",
+      "tildaspec-lang": window.t_forms__lang || "",
+    };
+
+    Object.keys(specs).forEach(function (key) {
+      ensureHiddenField(form, key, specs[key]);
+    });
+  }
+
+  function parseTildaFetchResponse(text, status) {
+    if (status < 200 || status >= 400) return false;
+    if (!text) return true;
+    try {
+      var json = JSON.parse(text);
+      if (json && json.error) return false;
+      if (json && json.message) return true;
+    } catch (e) {}
+    return /OK|спасибо|thank|success/i.test(text);
+  }
+
+  async function submitTildaBridgeViaFetch(form) {
+    if (!form || !window.t_forms__getFormData || !window.tildaForm || !window.tildaForm.endpoint) {
+      return false;
     }
-    submit.click();
+
+    ensureTildaSpecFields(form);
+    var pack = window.t_forms__getFormData(form);
+    if (!pack || pack.status === "invalid") {
+      console.warn("Everest: Tilda bridge payload invalid");
+      return false;
+    }
+
+    var url = "https://" + window.tildaForm.endpoint + "/procces/";
+    try {
+      var res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": pack.contentType,
+          Accept: "application/json, text/javascript, */*; q=0.01",
+        },
+        body: pack.data,
+      });
+      var text = await res.text();
+      return parseTildaFetchResponse(text, res.status);
+    } catch (err) {
+      console.error("Everest: Tilda fetch submit failed", err);
+      return false;
+    }
   }
 
   function resetTildaBridgeForm(form) {
@@ -443,15 +493,7 @@
     var consent = form.querySelector('[name="Consent"], [name="consent"]');
     if (consent) consent.checked = !!data.consent;
 
-    var submit = form.querySelector('button[type="submit"], .t-submit');
-    if (!submit) return false;
-
-    document.body.classList.add("everest-rfq-pending");
-    var perfMark = performance.now ? performance.now() : 0;
-
-    triggerTildaBridgeSubmit(form, submit);
-
-    var ok = await waitForTildaFormResult(form, 15000, perfMark);
+    var ok = await submitTildaBridgeViaFetch(form);
     if (!ok) resetTildaBridgeForm(form);
     return ok;
   }
@@ -549,13 +591,69 @@
     }
   }
 
+  function initEverestFormGuards(form) {
+    if (!form || form.dataset.everestFormGuard) return;
+    form.dataset.everestFormGuard = "1";
+    form.setAttribute("action", "");
+    form.addEventListener(
+      "submit",
+      function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      },
+      true
+    );
+    var btn = form.querySelector(".contact-form-submit");
+    if (btn && btn.getAttribute("type") === "submit") {
+      btn.setAttribute("type", "button");
+    }
+  }
+
+  async function handleEverestFormSubmit(form) {
+    var honeypot = form.querySelector('[name="website_hp"]');
+    if (honeypot && honeypot.value) return;
+
+    if (!validateForm(form)) return;
+
+    var data = readFormData(form);
+    var submitBtn = form.querySelector(".contact-form-submit");
+    if (submitBtn) submitBtn.classList.add("is-loading");
+
+    var payload = Object.assign({}, data, {
+      name: [data.firstName, data.lastName].filter(Boolean).join(" "),
+      source_form: form.id || "contact-form",
+    });
+
+    try {
+      var viaTilda = await copyToTildaForm(data, form.id || "contact-form");
+      if (CFG.tildaFormRequired && !viaTilda) {
+        setFormStatus(form, t("form_error"), "error");
+        console.error("Everest: Tilda bridge submit failed. Check form notifications in Tilda.");
+        return;
+      }
+      await postWebhook(payload);
+      if (window.everestTrackRfqSubmit) window.everestTrackRfqSubmit();
+      setFormStatus(form, t("form_success"), "success");
+      form.reset();
+      if (form.id === "contact-form") {
+        window.setTimeout(closeRfqModal, 1800);
+      }
+    } catch (err) {
+      setFormStatus(form, t("form_error"), "error");
+      console.error(err);
+    } finally {
+      if (submitBtn) submitBtn.classList.remove("is-loading");
+    }
+  }
+
   function initForm() {
     var bridge = getTildaBridgeForm();
     hideTildaBridgeBlock(bridge);
     disableBridgePhoneField(bridge);
-    initTildaBridgeGuard(bridge);
 
     document.querySelectorAll(".contact-form").forEach(function (form) {
+      initEverestFormGuards(form);
+
       form.addEventListener("input", function (e) {
         var el = e.target;
         if (!el || !el.classList || !el.classList.contains("is-invalid")) return;
@@ -569,44 +667,17 @@
         }
       });
 
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        var status = form.querySelector(".form-status");
-        var honeypot = form.querySelector('[name="website_hp"]');
-        if (honeypot && honeypot.value) return;
-
-        if (!validateForm(form)) return;
-
-        var data = readFormData(form);
-
-        var submitBtn = form.querySelector(".contact-form-submit");
-        if (submitBtn) submitBtn.classList.add("is-loading");
-
-        var payload = Object.assign({}, data, {
-          name: [data.firstName, data.lastName].filter(Boolean).join(" "),
-          source_form: form.id || "contact-form",
+      var submitBtn = form.querySelector(".contact-form-submit");
+      if (submitBtn) {
+        submitBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          handleEverestFormSubmit(form);
         });
+      }
 
-        try {
-          var viaTilda = await copyToTildaForm(data, form.id || "contact-form");
-          if (CFG.tildaFormRequired && !viaTilda) {
-            setFormStatus(form, t("form_error"), "error");
-            console.error("Everest: Tilda bridge submit failed. Check form notifications in Tilda.");
-            return;
-          }
-          await postWebhook(payload);
-          if (window.everestTrackRfqSubmit) window.everestTrackRfqSubmit();
-          setFormStatus(form, t("form_success"), "success");
-          form.reset();
-          if (form.id === "contact-form") {
-            window.setTimeout(closeRfqModal, 1800);
-          }
-        } catch (err) {
-          setFormStatus(form, t("form_error"), "error");
-          console.error(err);
-        } finally {
-          if (submitBtn) submitBtn.classList.remove("is-loading");
-        }
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        handleEverestFormSubmit(form);
       });
     });
   }

@@ -2,6 +2,11 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Form: direct Tilda fetch (no reload, no bridge submit)
+
+- **Decision:** `tildaForm.send` + bridge `submit` guard caused instant page reload and lost emails. Replaced with `t_forms__getFormData` + `fetch` to `https://forms.tildaapi.com/procces/` — no DOM submit, no reload. Everest buttons `type="button"` + capture `preventDefault` on `.contact-form`.
+- **Files:** `tilda/js/everest-app.js`, `tilda/embed-body-v2.html`
+
 ## 2026-06-14 — Form: no page reload, faster Tilda AJAX send
 
 - **Decision:** Submit caused full page reload + false error in block #7 (timeout before slow native POST). Fix: block bridge `submit` (preventDefault), use `tildaForm.send()` instead of `requestSubmit`, listen for `tildaform:aftersuccess` / network to `forms.tildaapi.com`. Success: status text only, `form.reset()`, modal closes after 1.8s — no reload. Consent invalid state: gold accent, not red.
