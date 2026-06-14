@@ -585,12 +585,17 @@ html[lang="zh"] .everest-root .cta-title .title-accent {
 }
 
 .everest-root .contact-field-input.is-invalid {
-  border-color: rgba(200, 164, 90, 0.32);
-  box-shadow: inset 0 -1px 0 rgba(220, 120, 100, 0.42);
+  border-color: rgba(200, 164, 90, 0.55);
+  box-shadow: inset 0 -1px 0 rgba(200, 164, 90, 0.48);
 }
 
 .everest-root .contact-checkbox.is-invalid {
-  color: rgba(255, 200, 190, 0.92);
+  color: var(--gold, #c8a45a);
+}
+
+.everest-root .contact-checkbox.is-invalid input {
+  outline: 1px solid rgba(200, 164, 90, 0.55);
+  outline-offset: 2px;
 }
 
 .everest-root .contact-checkbox input:focus,

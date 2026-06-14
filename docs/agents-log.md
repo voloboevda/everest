@@ -2,6 +2,11 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Form: no page reload, faster Tilda AJAX send
+
+- **Decision:** Submit caused full page reload + false error in block #7 (timeout before slow native POST). Fix: block bridge `submit` (preventDefault), use `tildaForm.send()` instead of `requestSubmit`, listen for `tildaform:aftersuccess` / network to `forms.tildaapi.com`. Success: status text only, `form.reset()`, modal closes after 1.8s — no reload. Consent invalid state: gold accent, not red.
+- **Files:** `tilda/js/everest-app.js`, `assets/css/everest-wibify-ui.css`
+
 ## 2026-06-14 — Form: bridge reset for header vs block #7
 
 - **Decision:** Header modal (`#contact-form`) sent; block #7 (`#request-form`) failed after first success — Tilda bridge stayed in success state and ignored second submit. Fix: `resetTildaBridgeForm()` before each copy, serialized bridge queue, scoped `readFormData()` via `querySelector`, success detection only for new network/inline popup after reset. Comments include `Source: contact-form|request-form`.

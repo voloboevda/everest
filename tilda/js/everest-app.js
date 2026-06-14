@@ -240,6 +240,35 @@
     });
   }
 
+  function initTildaBridgeGuard(form) {
+    if (!form || form.dataset.everestBridgeGuard) return;
+    form.dataset.everestBridgeGuard = "1";
+    form.addEventListener(
+      "submit",
+      function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      },
+      true
+    );
+  }
+
+  function triggerTildaBridgeSubmit(form, submit) {
+    if (window.tildaForm && typeof window.tildaForm.send === "function") {
+      window.tildaForm.send(form, submit);
+      return;
+    }
+    if (typeof form.requestSubmit === "function") {
+      try {
+        form.requestSubmit(submit);
+      } catch (e) {
+        submit.click();
+      }
+      return;
+    }
+    submit.click();
+  }
+
   function resetTildaBridgeForm(form) {
     if (!form) return;
     dismissTildaSuccessUi();
@@ -269,16 +298,25 @@
     for (var i = entries.length - 1; i >= 0; i--) {
       var entry = entries[i];
       if (entry.startTime < sinceMs) break;
-      if (!/\/forms\.tildacdn\.com\/|\/api\/forms\//i.test(entry.name)) continue;
+      if (!/\/forms\.tildacdn\.com\/|\/api\/forms\/|forms\.tildaapi\.com/i.test(entry.name)) continue;
       if (!entry.responseStatus || entry.responseStatus < 200 || entry.responseStatus >= 400) continue;
       return true;
     }
     return false;
   }
 
+  function isBridgeFormEvent(form, e) {
+    if (!e) return false;
+    var target = e.target;
+    if (target === form) return true;
+    if (target && target.id && target.id === form.id) return true;
+    if (e.detail && e.detail.form === form) return true;
+    return false;
+  }
+
   function waitForTildaFormResult(form, timeoutMs, startedAt) {
-    var deadline = Date.now() + (timeoutMs || 12000);
-    var errorsAfter = Date.now() + 1200;
+    var deadline = Date.now() + (timeoutMs || 15000);
+    var errorsAfter = Date.now() + 1500;
     var perfSince = typeof startedAt === "number" ? startedAt : performance.timeOrigin || 0;
     var resolved = false;
     var hadInlineSuccess = (function () {
@@ -295,10 +333,35 @@
         if (resolved) return;
         resolved = true;
         observer.disconnect();
+        form.removeEventListener("tildaform:aftersuccess", onSuccess);
+        form.removeEventListener("tildaform:aftererror", onError);
+        document.removeEventListener("tildaform:aftersuccess", onDocSuccess);
+        document.removeEventListener("tildaform:aftererror", onDocError);
         document.body.classList.remove("everest-rfq-pending");
         if (ok) dismissTildaSuccessUi();
         resolve(ok);
       }
+
+      function onSuccess(e) {
+        if (isBridgeFormEvent(form, e)) finish(true);
+      }
+
+      function onError(e) {
+        if (isBridgeFormEvent(form, e)) finish(false);
+      }
+
+      function onDocSuccess(e) {
+        onSuccess(e);
+      }
+
+      function onDocError(e) {
+        onError(e);
+      }
+
+      form.addEventListener("tildaform:aftersuccess", onSuccess);
+      form.addEventListener("tildaform:aftererror", onError);
+      document.addEventListener("tildaform:aftersuccess", onDocSuccess);
+      document.addEventListener("tildaform:aftererror", onDocError);
 
       function check() {
         if (sawTildaFormNetworkSuccess(perfSince)) {
@@ -386,17 +449,9 @@
     document.body.classList.add("everest-rfq-pending");
     var perfMark = performance.now ? performance.now() : 0;
 
-    if (typeof form.requestSubmit === "function") {
-      try {
-        form.requestSubmit(submit);
-      } catch (e) {
-        submit.click();
-      }
-    } else {
-      submit.click();
-    }
+    triggerTildaBridgeSubmit(form, submit);
 
-    var ok = await waitForTildaFormResult(form, 12000, perfMark);
+    var ok = await waitForTildaFormResult(form, 15000, perfMark);
     if (!ok) resetTildaBridgeForm(form);
     return ok;
   }
@@ -480,10 +535,25 @@
     return true;
   }
 
+  function closeRfqModal() {
+    var root = document.getElementById("everest-app");
+    if (!root || !root.classList.contains("rfq-open")) return;
+    root.classList.remove("rfq-open");
+    var modal = document.getElementById("rfq-modal");
+    var backdrop = document.getElementById("rfq-backdrop");
+    if (modal) modal.setAttribute("aria-hidden", "true");
+    if (backdrop) backdrop.setAttribute("aria-hidden", "true");
+    if (!root.classList.contains("menu-open")) {
+      root.classList.remove("is-locked");
+      document.documentElement.style.overflow = "";
+    }
+  }
+
   function initForm() {
     var bridge = getTildaBridgeForm();
     hideTildaBridgeBlock(bridge);
     disableBridgePhoneField(bridge);
+    initTildaBridgeGuard(bridge);
 
     document.querySelectorAll(".contact-form").forEach(function (form) {
       form.addEventListener("input", function (e) {
@@ -527,7 +597,10 @@
           await postWebhook(payload);
           if (window.everestTrackRfqSubmit) window.everestTrackRfqSubmit();
           setFormStatus(form, t("form_success"), "success");
-          if (viaTilda) form.reset();
+          form.reset();
+          if (form.id === "contact-form") {
+            window.setTimeout(closeRfqModal, 1800);
+          }
         } catch (err) {
           setFormStatus(form, t("form_error"), "error");
           console.error(err);
