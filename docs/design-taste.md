@@ -48,6 +48,8 @@
 | 2026-06-14 | Premium black restored | User reverted full-navy look. BG back to `#0A0A0B` + black hero/CTA; gold-led accents (less teal flood). Sector indices: compact mono badge. Globe: deep ocean base, unified label chrome, warm markers. About [02]: Lucide icons + card layout. |
 | 2026-06-14 | Footer wordmark | Oversized cropped «everest» at footer bottom (faizur/COSMOS pattern), Switzer 800, muted on dark bg |
 
+| 2026-06-14 | Single blue accent | One teal `#3D7F96` everywhere (briefing `em`, titles, globe legend, hero glow, coop tracks). Removed bright `#72D8F5` and `#4A90A8` secondary blues. Gold `#C8A45A` unchanged. |
+
 ## Adaptation rule
 
 When user picks a bundle or dictates a preference, append here. Future proposals should align with accumulated decisions.

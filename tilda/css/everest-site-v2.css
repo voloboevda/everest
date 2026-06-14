@@ -39,7 +39,7 @@
 .everest-root--v2 .hero-title--display .hero-accent--blue,
 .everest-root--v2 .section-title--display .title-accent--blue,
 .everest-root--v2 .cta-title .title-accent--blue {
-  color: var(--accent-blue, #72d8f5);
+  color: var(--accent);
 }
 
 .everest-root--v2 .hero-title--display .hero-accent--gold,
@@ -297,6 +297,15 @@
     padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1rem, 2.2vw, 1.75rem) clamp(0.75rem, 2vw, 1.25rem) clamp(0.35rem, 1.2vw, 0.75rem);
   }
 
+  .everest-root--v2 .stack-cards--expertise .stack-card__eyebrow,
+  .everest-root--v2 .stack-cards--expertise .stack-card__title,
+  .everest-root--v2 .stack-cards--expertise .stack-card__text,
+  .everest-root--v2 .stack-cards--expertise .expertise-card-v2__tags {
+    width: 100%;
+    max-width: 100%;
+    align-self: flex-start;
+  }
+
   .everest-root--v2 .stack-cards--expertise .stack-card__title {
     margin-bottom: 0.75rem;
     font-size: clamp(1.35rem, 2.35vw, 1.75rem);
@@ -383,7 +392,7 @@
   inset: 0;
   background: radial-gradient(
     ellipse 72% 68% at 50% 54%,
-    rgba(114, 216, 245, 0.06),
+    rgba(61, 127, 150, 0.06),
     transparent 74%
   );
   pointer-events: none;
@@ -429,15 +438,25 @@
 }
 
 .everest-root--v2 .stack-cards--expertise .expertise-card-v2__tags {
-  justify-content: flex-start;
-  max-width: none;
-  gap: 0.4rem 0.75rem;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  text-align: left;
+  line-height: 1.5;
 }
 
 .everest-root--v2 .stack-cards--expertise .expertise-card-v2__tags li {
+  display: inline;
   font-size: 0.625rem;
   letter-spacing: 0.12em;
   color: rgba(232, 236, 242, 0.5);
+}
+
+html[lang="ru"] .everest-root--v2 .stack-cards--expertise .expertise-card-v2__tags,
+html[lang="en"] .everest-root--v2 .stack-cards--expertise .expertise-card-v2__tags {
+  white-space: nowrap;
 }
 
 .everest-root--v2 .stack-cards--expertise .stack-card:hover .expertise-card-v2__img,
@@ -460,7 +479,7 @@
   }
 
   .everest-root--v2 .stack-cards--expertise .expertise-card-v2__tags {
-    justify-content: flex-start;
+    text-align: left;
   }
 
   .everest-root--v2 .stack-cards--expertise .stack-card__visual {
@@ -486,15 +505,15 @@
 }
 
 .everest-root--v2 .expertise-card-v2__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.65rem;
+  display: block;
   margin: 0;
   padding: 0;
   list-style: none;
+  text-align: left;
 }
 
 .everest-root--v2 .expertise-card-v2__tags li {
+  display: inline;
   font-family: var(--font-mono, "JetBrains Mono", monospace);
   font-size: 0.625rem;
   font-weight: 500;
@@ -505,7 +524,7 @@
 
 .everest-root--v2 .expertise-card-v2__tags li + li::before {
   content: "·";
-  margin-right: 0.4rem;
+  margin: 0 0.5rem;
   color: rgba(200, 164, 90, 0.72);
 }
 
@@ -531,7 +550,7 @@
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent-blue, #72d8f5);
+  color: var(--accent);
 }
 
 .everest-root--v2 .coop-v2__heading {
@@ -753,9 +772,25 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
+  align-self: flex-start;
   gap: 0.4rem;
   width: 100%;
+  max-width: 28rem;
   text-align: left;
+}
+
+/* RU + ENG: fixed 2-on-top / 1-below tag rhythm (ZH keeps natural wrap) */
+html[lang="ru"] .everest-root--v2 .sector-card-v2__tags,
+html[lang="en"] .everest-root--v2 .sector-card-v2__tags {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  justify-content: start;
+  align-content: start;
+}
+
+html[lang="ru"] .everest-root--v2 .sector-card-v2__tag,
+html[lang="en"] .everest-root--v2 .sector-card-v2__tag {
+  white-space: nowrap;
 }
 
 .everest-root--v2 .sector-card-v2__tag {

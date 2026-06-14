@@ -812,3 +812,23 @@ Chronological decisions for Everest Trade web project.
 - **Decision:** User accepts human-check captcha but must stay on site with Everest dark/gold styling (no white ERROR 3 / fullscreen redirect). Styled `#tildaformcaptchabox` as compact card overlay; status under active form (RU/ENG/CHI); close cancels with message.
 - **Files:** `tilda/js/everest-app.js`, `tilda/js/everest-i18n.js`, `tilda/css/everest-site.css`, `assets/css/everest-wibify-ui.css`, paste blocks rebuilt
 
+## 2026-06-14 — Captcha overlay v2: RFQ modal alignment
+
+- **Decision:** User flagged crooked captcha UI — white Yandex widget floated awkwardly in dark card. Redesigned: RFQ-modal card (sharp corners, Switzer/Instrument Serif), block-eyebrow + styled close, dedicated light-gray widget tray for captcha iframe (standard third-party slot).
+- **Files:** `tilda/js/everest-app.js`, `tilda/js/everest-i18n.js`, `tilda/css/everest-site.css`
+
+## 2026-06-14 — Sector card tags: RU/ENG 2+1 grid alignment
+
+- **Decision:** User required sector tag pills aligned with desc text start; RU had 2+1 layout but ENG fit 3 in one row. Fixed CSS grid (2 cols) for `html[lang="ru"]` and `html[lang="en"]`; ZH keeps flex wrap. Tags `max-width: 28rem` matches desc. Shortened EN tag labels for pill parity.
+- **Files:** `tilda/css/everest-site-v2.css`, `tilda/js/everest-i18n.js`
+
+## 2026-06-14 — Expertise card tags: left-align with body text
+
+- **Decision:** User flagged expertise dot-tags (КОНТРАКТЫ · РИСКИ · КОМПЛАЕНС) offset from paragraph left edge; ENG same fix. Switched tags to block/inline flow + `width:100%` on body children; RU/ENG `nowrap` row; ZH unchanged wrap.
+- **Files:** `tilda/css/everest-site-v2.css`
+
+## 2026-06-14 — Single blue accent lock (#3D7F96)
+
+- **Decision:** User required one blue accent — same as briefing form `em` (`--accent` #3D7F96). Removed bright `#72D8F5` / `#4A90A8` shades from titles, hero glow, globe legend active, coop tracks, buttons.
+- **Files:** `assets/css/everest-wibify-ui.css`, `tilda/css/everest-site.css`, `tilda/css/everest-site-v2.css`, `docs/design-taste.md`
+

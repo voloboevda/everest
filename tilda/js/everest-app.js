@@ -381,34 +381,46 @@
       var card = document.createElement("div");
       card.className = "everest-captcha-card";
 
-      var eyebrow = document.createElement("p");
-      eyebrow.className = "everest-captcha-eyebrow";
-      eyebrow.textContent = t("form_captcha_eyebrow");
-
-      var title = document.createElement("p");
-      title.className = "everest-captcha-title";
-      title.textContent = t("form_captcha_title");
-
-      var sub = document.createElement("p");
-      sub.className = "everest-captcha-sub";
-      sub.textContent = t("form_captcha_sub");
+      var top = document.createElement("div");
+      top.className = "everest-captcha-top";
 
       var closeBtn = document.createElement("button");
       closeBtn.type = "button";
       closeBtn.className = "everest-captcha-close";
       closeBtn.setAttribute("aria-label", t("form_captcha_cancel"));
-      closeBtn.textContent = "×";
+      closeBtn.innerHTML = "<span></span><span></span>";
       closeBtn.addEventListener("click", function () {
         dismissEverestCaptcha();
         if (everestUiForm) setFormStatus(everestUiForm, t("form_captcha_cancel"), "error");
         if (onCancel) onCancel(false);
       });
 
-      card.appendChild(closeBtn);
-      card.appendChild(eyebrow);
-      card.appendChild(title);
-      card.appendChild(sub);
-      card.appendChild(iframe);
+      var eyebrow = document.createElement("p");
+      eyebrow.className = "everest-captcha-eyebrow";
+      eyebrow.innerHTML =
+        '<span class="everest-captcha-eyebrow__line" aria-hidden="true"></span>' +
+        '<span class="everest-captcha-eyebrow__label">' +
+        t("form_captcha_eyebrow") +
+        "</span>";
+
+      var title = document.createElement("p");
+      title.className = "everest-captcha-title";
+      title.innerHTML = t("form_captcha_title");
+
+      var sub = document.createElement("p");
+      sub.className = "everest-captcha-sub";
+      sub.textContent = t("form_captcha_sub");
+
+      var widget = document.createElement("div");
+      widget.className = "everest-captcha-widget";
+      widget.appendChild(iframe);
+
+      top.appendChild(closeBtn);
+      top.appendChild(eyebrow);
+      top.appendChild(title);
+      top.appendChild(sub);
+      card.appendChild(top);
+      card.appendChild(widget);
       box.innerHTML = "";
       box.appendChild(card);
     }
