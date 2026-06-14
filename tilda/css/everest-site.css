@@ -1627,6 +1627,6 @@ html[lang="zh"] .everest-root .hero-title--display .hero-accent {
   height: 1px !important;
   overflow: hidden !important;
   opacity: 0 !important;
-  pointer-events: none !important;
+  z-index: -1 !important;
   display: block !important;
 }

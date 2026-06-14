@@ -141,8 +141,25 @@
     rec.style.setProperty("height", "1px", "important");
     rec.style.setProperty("overflow", "hidden", "important");
     rec.style.setProperty("opacity", "0", "important");
-    rec.style.setProperty("pointer-events", "none", "important");
     rec.style.setProperty("display", "block", "important");
+    rec.style.setProperty("z-index", "-1", "important");
+  }
+
+  function clearTildaFormErrors(form) {
+    form.querySelectorAll(".t-input-error").forEach(function (el) {
+      el.textContent = "";
+    });
+  }
+
+  function disableBridgePhoneField(form) {
+    form.querySelectorAll('[data-field-name="Phone"], [data-field-type="ph"]').forEach(function (group) {
+      group.style.setProperty("display", "none", "important");
+    });
+    form.querySelectorAll('[name="Phone"], .js-phonemask-input').forEach(function (el) {
+      el.value = "";
+      el.removeAttribute("required");
+      el.removeAttribute("aria-required");
+    });
   }
 
   function setTildaField(form, names, value) {
@@ -175,25 +192,28 @@
   }
 
   function waitForTildaFormResult(form, timeoutMs) {
-    var deadline = Date.now() + (timeoutMs || 8000);
+    var deadline = Date.now() + (timeoutMs || 10000);
+    var errorsAfter = Date.now() + 600;
     return new Promise(function (resolve) {
       function poll() {
         if (isTildaFormSuccess(form)) {
           resolve(true);
           return;
         }
-        var errors = getTildaFormErrors(form);
-        if (errors.length) {
-          console.warn("Everest: Tilda bridge validation:", errors.join("; "));
-          resolve(false);
-          return;
+        if (Date.now() >= errorsAfter) {
+          var errors = getTildaFormErrors(form);
+          if (errors.length) {
+            console.warn("Everest: Tilda bridge validation:", errors.join("; "));
+            resolve(false);
+            return;
+          }
         }
         if (Date.now() >= deadline) {
           console.warn("Everest: Tilda bridge submit timeout");
           resolve(false);
           return;
         }
-        window.setTimeout(poll, 120);
+        window.setTimeout(poll, 150);
       }
       poll();
     });
@@ -203,13 +223,14 @@
     var form = getTildaBridgeForm();
     if (!form) return false;
 
+    clearTildaFormErrors(form);
+    disableBridgePhoneField(form);
+
     var fullName = [data.firstName, data.lastName].filter(Boolean).join(" ");
     setTildaField(form, ["name", "Name"], fullName);
     setTildaField(form, ["Company", "company"], data.company);
     setTildaField(form, ["Country", "country"], "");
     setTildaField(form, ["Email", "email"], data.email);
-    // Skip Phone on bridge — Tilda phonemask rejects programmatic values; phone goes to Comments.
-    setTildaField(form, ["Phone", "phone"], "");
     setTildaField(
       form,
       ["Message", "message", "Comments", "comments", "form"],
@@ -222,8 +243,12 @@
     var submit = form.querySelector('button[type="submit"], .t-submit');
     if (!submit) return false;
 
-    submit.click();
-    return waitForTildaFormResult(form, 8000);
+    if (typeof form.requestSubmit === "function") {
+      form.requestSubmit(submit);
+    } else {
+      submit.click();
+    }
+    return waitForTildaFormResult(form, 10000);
   }
 
   async function postWebhook(data) {
@@ -298,7 +323,9 @@
   }
 
   function initForm() {
-    hideTildaBridgeBlock(getTildaBridgeForm());
+    var bridge = getTildaBridgeForm();
+    hideTildaBridgeBlock(bridge);
+    disableBridgePhoneField(bridge);
 
     document.querySelectorAll(".contact-form").forEach(function (form) {
       form.addEventListener("input", function (e) {
