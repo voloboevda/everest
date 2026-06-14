@@ -2,6 +2,11 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — UX batch: no stack smoke, one accent, tag align !important
+
+- **Decision:** User fatigue — expertise stack dim/scale (0.6/0.1 «smoke») disabled (`data-stack-dim="0"`, `data-stack-scale="0"`). All heading gold accents → teal `#3D7F96`; hero gold orb → teal; sector hovers teal not gold. Tilda `#allrecords ul` padding beaten with `!important` on tag lists. Paste blocks rebuilt.
+- **Files:** `tilda/css/everest-site-v2.css`, `assets/css/everest-wibify-ui.css`, `tilda/css/everest-site.css`, `tilda/embed-body-v2.html`, `tilda/paste-block-*.html`
+
 ## 2026-06-14 — Sector tags: beat Tilda `#allrecords ul` padding
 
 - **Decision:** Live misalignment (tags 20px right of title) caused by Tilda global `#allrecords ul { padding-left: 20px }` beating `.everest-root--v2` class rules. Fixed with `#allrecords .everest-root--v2 .sector-card-v2__tags` (+ expertise tags) explicit `padding: 0; padding-inline-start: 0; margin: 0`.

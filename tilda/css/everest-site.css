@@ -616,12 +616,9 @@ html[lang="zh"] .everest-root .hero-title--display {
   letter-spacing: 0;
 }
 
-.everest-root .hero-title--display .hero-accent--blue {
-  color: var(--accent);
-}
-
+.everest-root .hero-title--display .hero-accent--blue,
 .everest-root .hero-title--display .hero-accent--gold {
-  color: var(--gold, #c8a45a);
+  color: var(--accent);
 }
 
 html[lang="zh"] .everest-root .hero-title--display .hero-accent {

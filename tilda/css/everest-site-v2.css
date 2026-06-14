@@ -38,13 +38,13 @@
 
 .everest-root--v2 .hero-title--display .hero-accent--blue,
 .everest-root--v2 .section-title--display .title-accent--blue,
-.everest-root--v2 .cta-title .title-accent--blue {
-  color: var(--accent);
-}
-
+.everest-root--v2 .cta-title .title-accent--blue,
 .everest-root--v2 .hero-title--display .hero-accent--gold,
-.everest-root--v2 .section-title--display .title-accent--gold {
-  color: var(--gold, #c8a45a);
+.everest-root--v2 .section-title--display .title-accent--gold,
+.everest-root--v2 .cta-title .title-accent--gold,
+.everest-root--v2 .sector-card-v2__accent--blue,
+.everest-root--v2 .sector-card-v2__accent--gold {
+  color: var(--accent, #3d7f96);
 }
 
 /* v2: no section curtain darken / blur */
@@ -268,7 +268,7 @@
   font-size: clamp(3rem, 8vw, 4.5rem);
   font-weight: 300;
   line-height: 1;
-  color: rgba(200, 164, 90, 0.22);
+  color: rgba(61, 127, 150, 0.22);
 }
 
 @media (min-width: 768px) {
@@ -284,7 +284,6 @@
     min-height: clamp(340px, 44vh, 440px);
     height: clamp(340px, 44vh, 440px);
     padding: clamp(1.25rem, 2.5vw, 1.75rem);
-    padding-left: clamp(1rem, 2vw, 1.35rem);
   }
 
   .everest-root--v2 .stack-cards--expertise .stack-card__body {
@@ -294,7 +293,7 @@
     align-items: flex-start;
     text-align: left;
     width: 100%;
-    padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1rem, 2.2vw, 1.75rem) clamp(0.75rem, 2vw, 1.25rem) clamp(0.35rem, 1.2vw, 0.75rem);
+    padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1rem, 2.2vw, 1.75rem);
   }
 
   .everest-root--v2 .stack-cards--expertise .stack-card__eyebrow,
@@ -442,12 +441,12 @@
   display: block;
   width: 100%;
   max-width: 100%;
-  margin: 0.2rem 0 0;
-  padding: 0;
-  padding-inline-start: 0;
+  margin: 0.2rem 0 0 !important;
+  padding: 0 !important;
+  padding-inline-start: 0 !important;
   text-align: left;
   line-height: 1.5;
-  list-style: none;
+  list-style: none !important;
 }
 
 .everest-root--v2 .stack-cards--expertise .expertise-card-v2__tags li {
@@ -510,10 +509,10 @@ html[lang="en"] .everest-root--v2 .stack-cards--expertise .expertise-card-v2__ta
 .everest-root--v2 .expertise-card-v2__tags,
 #allrecords .everest-root--v2 .expertise-card-v2__tags {
   display: block;
-  margin: 0;
-  padding: 0;
-  padding-inline-start: 0;
-  list-style: none;
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-inline-start: 0 !important;
+  list-style: none !important;
   text-align: left;
 }
 
@@ -670,7 +669,7 @@ html[lang="en"] .everest-root--v2 .stack-cards--expertise .expertise-card-v2__ta
 
 .everest-root--v2 .sector-card-v2:hover .sector-card-v2__index,
 .everest-root--v2 .sector-card-v2:focus-within .sector-card-v2__index {
-  color: var(--gold, #c8a45a);
+  color: var(--accent, #3d7f96);
 }
 
 .everest-root--v2 .sector-card-v2__watermark {
@@ -728,20 +727,20 @@ html[lang="en"] .everest-root--v2 .stack-cards--expertise .expertise-card-v2__ta
 
 .everest-root--v2 .sector-card-v2:hover .sector-card-v2__icon,
 .everest-root--v2 .sector-card-v2:focus-within .sector-card-v2__icon {
-  color: var(--gold, #c8a45a);
-  border-color: rgba(200, 164, 90, 0.4);
-  background: rgba(200, 164, 90, 0.08);
+  color: var(--accent, #3d7f96);
+  border-color: rgba(61, 127, 150, 0.4);
+  background: rgba(61, 127, 150, 0.08);
   transform: rotate(-14deg);
 }
 
 .everest-root--v2 .sector-card-v2:hover .sector-card-v2__title,
 .everest-root--v2 .sector-card-v2:focus-within .sector-card-v2__title {
-  color: var(--gold, #c8a45a);
+  color: var(--accent, #3d7f96);
 }
 
 .everest-root--v2 .sector-card-v2:hover .sector-card-v2__arrow,
 .everest-root--v2 .sector-card-v2:focus-within .sector-card-v2__arrow {
-  color: var(--gold, #c8a45a);
+  color: var(--accent, #3d7f96);
   transform: translate(2px, -2px);
 }
 
@@ -771,10 +770,10 @@ html[lang="en"] .everest-root--v2 .stack-cards--expertise .expertise-card-v2__ta
 #allrecords .everest-root--v2 .sector-card-v2__tags {
   position: relative;
   z-index: 1;
-  margin: 0;
-  padding: 0;
-  padding-inline-start: 0;
-  list-style: none;
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-inline-start: 0 !important;
+  list-style: none !important;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -827,11 +826,11 @@ html[lang="en"] .everest-root--v2 .sector-card-v2__tag {
 
 .everest-root--v2 .sector-card-v2:hover .sector-card-v2__tag-icon,
 .everest-root--v2 .sector-card-v2:focus-within .sector-card-v2__tag-icon {
-  color: rgba(200, 164, 90, 0.72);
+  color: rgba(61, 127, 150, 0.72);
 }
 
 .everest-root--v2 .sector-card-v2.is-revealed {
-  border-color: rgba(200, 164, 90, 0.22);
+  border-color: rgba(61, 127, 150, 0.22);
 }
 
 .everest-root--v2 [data-sector-card][data-sector-pending] .sector-card-v2__desc,
