@@ -2,6 +2,11 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Captcha modal: wider card, more padding
+
+- **Decision:** User — captcha «plashechka» too tight; close X cramped. Card `22rem` → `32rem`; top padding + right reserve for close; close inset `1.25rem`; widget/iframe max `28rem`.
+- **Files:** `tilda/css/everest-site.css`
+
 ## 2026-06-14 — Expertise PNGs: transparent bg (cards 01, 04, 06)
 
 - **Decision:** Cards 02–03 looked seamless (RGBA PNG); 01/04/06 were JPEG with opaque black → visible square on card. Processed `exp-finance`, `exp-deal`, `exp-analytics` → true RGBA PNG (~73–88% transparent), same as import/logistics/contract. Script: `scripts/process-expertise-images.py`.

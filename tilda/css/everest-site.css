@@ -1676,7 +1676,7 @@ html.everest-captcha-open {
 
 .everest-captcha-card {
   position: relative;
-  width: min(100%, 22rem);
+  width: min(100%, 32rem);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 0;
@@ -1687,7 +1687,7 @@ html.everest-captcha-open {
 
 .everest-captcha-top {
   position: relative;
-  padding: 1.5rem 1.5rem 1.25rem;
+  padding: 1.75rem 4.75rem 1.5rem 1.75rem;
   text-align: left;
 }
 
@@ -1730,8 +1730,8 @@ html.everest-captcha-open {
 
 .everest-captcha-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.25rem;
+  right: 1.25rem;
   width: 2.75rem;
   height: 2.75rem;
   padding: 0;
@@ -1772,7 +1772,7 @@ html.everest-captcha-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 1rem 1.125rem;
+  padding: 1.25rem 1.75rem 1.75rem;
   background: #f4f4f5;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -1784,7 +1784,7 @@ html.everest-captcha-open {
   left: auto !important;
   top: auto !important;
   width: 100% !important;
-  max-width: 20rem !important;
+  max-width: 28rem !important;
   min-height: 11.5rem !important;
   height: auto !important;
   margin: 0 !important;
@@ -1799,7 +1799,7 @@ html.everest-captcha-open {
 .everest-captcha-widget #captchaIframeBox iframe {
   display: block !important;
   width: 100% !important;
-  max-width: 20rem !important;
+  max-width: 28rem !important;
   min-height: 11.5rem !important;
   height: 11.5rem !important;
   margin: 0 auto !important;
