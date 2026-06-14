@@ -267,6 +267,7 @@
       "tildaspec-cookie": document.cookie,
       "tildaspec-referer": window.location.href,
       "tildaspec-formid": form.getAttribute("id") || "",
+      "tildaspec-formskey": getTildaFormKey(form),
       "tildaspec-version-lib": window.tildaForm.versionLib || "",
       "tildaspec-pageid": allRecords.getAttribute("data-tilda-page-id") || "",
       "tildaspec-projectid": allRecords.getAttribute("data-tilda-project-id") || "",
@@ -298,11 +299,21 @@
   }
 
   function getTildaFormKey(form) {
-    var key = form.getAttribute("data-tilda-formskey");
-    if (key) return key;
-    var id = form.getAttribute("id") || "";
-    if (id.indexOf("form") === 0) return id.slice(4);
-    return id;
+    var allRecords = document.getElementById("allrecords");
+    if (allRecords) {
+      var pageKey = allRecords.getAttribute("data-tilda-formskey");
+      if (pageKey) return pageKey;
+    }
+    if (form) {
+      var formKey = form.getAttribute("data-tilda-formskey");
+      if (formKey) return formKey;
+      var rec = form.closest('[id^="rec"]');
+      if (rec) {
+        var recKey = rec.getAttribute("data-tilda-formskey");
+        if (recKey) return recKey;
+      }
+    }
+    return "";
   }
 
   function parseTildaFetchResponse(text, status) {
@@ -341,7 +352,9 @@
 
   function submitTildaBridgeWithCaptcha(form) {
     return new Promise(function (resolve) {
-      if (!window.tildaForm || typeof window.tildaForm.addTildaCaptcha !== "function") {
+      var formKey = getTildaFormKey(form);
+      if (!formKey || !window.tildaForm || typeof window.tildaForm.addTildaCaptcha !== "function") {
+        console.warn("Everest: Tilda captcha unavailable (missing formskey)");
         resolve(false);
         return;
       }
@@ -358,7 +371,7 @@
         submitTildaBridgeViaFetch(form, true).then(finish);
       };
 
-      window.tildaForm.addTildaCaptcha(form, getTildaFormKey(form));
+      window.tildaForm.addTildaCaptcha(form, formKey);
       window.setTimeout(function () {
         finish(false);
       }, 120000);

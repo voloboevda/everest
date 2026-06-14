@@ -2,6 +2,11 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Form: fix Tilda captcha ERROR 3 (wrong formskey)
+
+- **Decision:** Instant white screen `ERROR 3` was broken Tilda captcha iframe — wrong `tildaspec-formskey` (used form id `2378655331` instead of page key from `#allrecords[data-tilda-formskey]`). Fix `getTildaFormKey()` + inject `tildaspec-formskey` into fetch payload.
+- **Files:** `tilda/js/everest-app.js`
+
 ## 2026-06-14 — Form: Tilda captcha + anti double-submit
 
 - **Decision:** Live error was Tilda `needcaptcha` JSON (anti-spam), not page reload. Fix: parse `needcaptcha`, open `tildaForm.addTildaCaptcha`, patch `t_forms__submitEvent` on bridge to retry fetch (no reload). Mutex on `handleEverestFormSubmit`. Checkbox `accent-color` gold.
