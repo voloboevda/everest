@@ -350,7 +350,73 @@
     };
   }
 
-  function submitTildaBridgeWithCaptcha(form) {
+  function setFormStatus(form, message, type) {
+    var status = form.querySelector(".form-status");
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle("is-error", type === "error");
+    status.classList.toggle("is-success", type === "success");
+    status.classList.toggle("is-pending", type === "pending");
+  }
+
+  function dismissEverestCaptcha() {
+    var box = document.getElementById("tildaformcaptchabox");
+    if (box) box.remove();
+    var cap = document.getElementById("js-tildaspec-captcha");
+    if (cap) cap.remove();
+    document.body.classList.remove("everest-captcha-open");
+    document.documentElement.classList.remove("everest-captcha-open");
+  }
+
+  function styleEverestCaptchaOverlay(everestUiForm, onCancel) {
+    var box = document.getElementById("tildaformcaptchabox");
+    var iframe = document.getElementById("captchaIframeBox");
+    if (!box || !iframe) return;
+
+    document.body.classList.add("everest-captcha-open");
+    document.documentElement.classList.add("everest-captcha-open");
+    box.classList.add("everest-captcha-overlay");
+
+    if (!box.querySelector(".everest-captcha-card")) {
+      var card = document.createElement("div");
+      card.className = "everest-captcha-card";
+
+      var eyebrow = document.createElement("p");
+      eyebrow.className = "everest-captcha-eyebrow";
+      eyebrow.textContent = t("form_captcha_eyebrow");
+
+      var title = document.createElement("p");
+      title.className = "everest-captcha-title";
+      title.textContent = t("form_captcha_title");
+
+      var sub = document.createElement("p");
+      sub.className = "everest-captcha-sub";
+      sub.textContent = t("form_captcha_sub");
+
+      var closeBtn = document.createElement("button");
+      closeBtn.type = "button";
+      closeBtn.className = "everest-captcha-close";
+      closeBtn.setAttribute("aria-label", t("form_captcha_cancel"));
+      closeBtn.textContent = "×";
+      closeBtn.addEventListener("click", function () {
+        dismissEverestCaptcha();
+        if (everestUiForm) setFormStatus(everestUiForm, t("form_captcha_cancel"), "error");
+        if (onCancel) onCancel(false);
+      });
+
+      card.appendChild(closeBtn);
+      card.appendChild(eyebrow);
+      card.appendChild(title);
+      card.appendChild(sub);
+      card.appendChild(iframe);
+      box.innerHTML = "";
+      box.appendChild(card);
+    }
+
+    if (everestUiForm) setFormStatus(everestUiForm, t("form_captcha_wait"), "pending");
+  }
+
+  function submitTildaBridgeWithCaptcha(form, everestUiForm) {
     return new Promise(function (resolve) {
       var formKey = getTildaFormKey(form);
       if (!formKey || !window.tildaForm || typeof window.tildaForm.addTildaCaptcha !== "function") {
@@ -364,21 +430,25 @@
         if (settled) return;
         settled = true;
         delete form.__everestFetchAfterCaptcha;
+        dismissEverestCaptcha();
         resolve(ok);
       }
 
       form.__everestFetchAfterCaptcha = function () {
-        submitTildaBridgeViaFetch(form, true).then(finish);
+        submitTildaBridgeViaFetch(form, true, everestUiForm).then(finish);
       };
 
       window.tildaForm.addTildaCaptcha(form, formKey);
+      window.setTimeout(function () {
+        styleEverestCaptchaOverlay(everestUiForm, finish);
+      }, 60);
       window.setTimeout(function () {
         finish(false);
       }, 120000);
     });
   }
 
-  async function submitTildaBridgeViaFetch(form, skipCaptcha) {
+  async function submitTildaBridgeViaFetch(form, skipCaptcha, everestUiForm) {
     if (!form || !window.t_forms__getFormData || !window.tildaForm || !window.tildaForm.endpoint) {
       return false;
     }
@@ -404,7 +474,7 @@
       var parsed = parseTildaFetchResponse(text, res.status);
       if (parsed.ok) return true;
       if (parsed.needcaptcha && !skipCaptcha) {
-        return submitTildaBridgeWithCaptcha(form);
+        return submitTildaBridgeWithCaptcha(form, everestUiForm);
       }
       console.warn("Everest: Tilda API response:", text);
       return false;
@@ -568,7 +638,7 @@
     return parts.join("\n");
   }
 
-  async function copyToTildaFormOnce(data, sourceForm) {
+  async function copyToTildaFormOnce(data, sourceForm, everestUiForm) {
     var form = getTildaBridgeForm();
     if (!form) return false;
 
@@ -588,14 +658,14 @@
     var consent = form.querySelector('[name="Consent"], [name="consent"]');
     if (consent) consent.checked = !!data.consent;
 
-    var ok = await submitTildaBridgeViaFetch(form);
+    var ok = await submitTildaBridgeViaFetch(form, false, everestUiForm);
     if (!ok) resetTildaBridgeForm(form);
     return ok;
   }
 
-  function copyToTildaForm(data, sourceForm) {
+  function copyToTildaForm(data, sourceForm, everestUiForm) {
     var job = bridgeSubmitQueue.then(function () {
-      return copyToTildaFormOnce(data, sourceForm);
+      return copyToTildaFormOnce(data, sourceForm, everestUiForm);
     });
     bridgeSubmitQueue = job.catch(function () {});
     return job;
@@ -723,7 +793,7 @@
         source_form: form.id || "contact-form",
       });
 
-      var viaTilda = await copyToTildaForm(data, form.id || "contact-form");
+      var viaTilda = await copyToTildaForm(data, form.id || "contact-form", form);
       if (CFG.tildaFormRequired && !viaTilda) {
         setFormStatus(form, t("form_error"), "error");
         console.error("Everest: Tilda bridge submit failed. Check form notifications in Tilda.");

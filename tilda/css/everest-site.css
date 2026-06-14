@@ -1638,3 +1638,99 @@ body.everest-rfq-pending .t-form-success-popup {
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
+/* Everest-styled Tilda captcha — on-page overlay, no white fullscreen */
+body.everest-captcha-open,
+html.everest-captcha-open {
+  overflow: hidden !important;
+}
+
+#tildaformcaptchabox.everest-captcha-overlay,
+.everest-captcha-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+  background: rgba(10, 10, 11, 0.9) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: none !important;
+}
+
+.everest-captcha-card {
+  position: relative;
+  width: min(420px, 100%);
+  padding: 28px 28px 24px;
+  background: #141416;
+  border: 1px solid rgba(200, 164, 90, 0.28);
+  border-radius: 12px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+  text-align: center;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.everest-captcha-eyebrow {
+  margin: 0 0 8px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c8a45a;
+}
+
+.everest-captcha-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #f5f5f5;
+}
+
+.everest-captcha-sub {
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(245, 245, 245, 0.72);
+}
+
+.everest-captcha-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(245, 245, 245, 0.55);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.everest-captcha-close:hover {
+  color: #f5f5f5;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+#captchaIframeBox,
+.everest-captcha-card #captchaIframeBox {
+  display: block !important;
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  width: 100% !important;
+  max-width: 304px !important;
+  height: 78px !important;
+  margin: 0 auto !important;
+  border: none !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  background: #fff !important;
+}

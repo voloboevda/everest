@@ -807,4 +807,8 @@ Chronological decisions for Everest Trade web project.
 - **Decision:** Wordmark pinned to footer bottom edge (no gap); ~62% letter height visible; overlay behind columns/copyright.
 - **Files:** `tilda/css/everest-site.css`, `tilda/t123-single.html`, `tilda/embed-body-v2.html`, `tilda/embed-body.html`, `tilda/embed-body-v3.html`
 
+## 2026-06-14 — Tilda captcha: on-page Everest overlay
+
+- **Decision:** User accepts human-check captcha but must stay on site with Everest dark/gold styling (no white ERROR 3 / fullscreen redirect). Styled `#tildaformcaptchabox` as compact card overlay; status under active form (RU/ENG/CHI); close cancels with message.
+- **Files:** `tilda/js/everest-app.js`, `tilda/js/everest-i18n.js`, `tilda/css/everest-site.css`, `assets/css/everest-wibify-ui.css`, paste blocks rebuilt
 

@@ -756,6 +756,10 @@ html[lang="zh"] .everest-root .cta-title .title-accent {
   color: var(--accent);
 }
 
+.everest-root .form-status.is-pending {
+  color: var(--gold-bright, #c8a45a);
+}
+
 /* Menu overlay — left-aligned to page container (21.dev animated menu port) */
 .everest-root .menu-overlay {
   --menu-gutter: max(1.5rem, calc((100vw - min(100vw, var(--container, 1120px))) / 2 + 1.5rem));
