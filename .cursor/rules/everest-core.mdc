@@ -1,0 +1,17 @@
+---
+description: Everest Trade core conventions — B2B tone, languages, stakeholder taste
+alwaysApply: true
+---
+
+# Everest Trade — Core
+
+- User language: Russian (Cyrillic). Technical artifacts: English.
+- UI language switcher labels: **RU | ENG | CHI** (not ZH/ZHE). Chinese content: 中文.
+- Positioning: large-scale international B2B trading; **business partner** tone. Not startup, not founders.
+- Do **not** emphasize Russia→China as primary narrative.
+- Design taste: clean, presentable, premium corporate. No visual clutter, no muddy/darkened palettes, no neon/AI-purple gradients.
+- Read `docs/design-taste.md` before UI work. Offer 2–3 font/color bundles for approval.
+- Domain `everestcentr.com` connects **last**, after site is ready. Logo TBD — use text wordmark.
+- WeChat: button in header/CHI section; QR placeholder until real QR provided.
+- When unsure: `AskQuestion` with Russian options + «Другое / скажу голосом».
+- After significant decisions: update `docs/*.md` and `docs/agents-log.md`; tell user in Russian.

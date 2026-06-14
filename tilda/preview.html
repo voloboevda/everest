@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Everest Trade — Preview</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/everest-favicon-32.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="../assets/img/everest-favicon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/everest-site.css">
+  <link rel="stylesheet" href="css/everest-site-v2.css">
+  <link rel="stylesheet" href="../assets/css/everest-overrides.css">
+  <link rel="stylesheet" href="../assets/css/everest-wibify-ui.css">
+  <link rel="stylesheet" href="../assets/css/shiny-button.css">
+  <script>
+    window.__EVEREST_CONFIG = { tildaFormSelector: '', webhookUrl: '' };
+  </script>
+</head>
+<body>
+  <script>
+    function loadScript(src) {
+      return new Promise(function (resolve, reject) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.body.appendChild(s);
+      });
+    }
+
+    fetch('embed-body-v2.html')
+      .then(function (r) { return r.text(); })
+      .then(function (html) {
+        document.body.insertAdjacentHTML('afterbegin', html);
+        return loadScript('js/everest-i18n.js');
+      })
+      .then(function () { return loadScript('js/everest-app.js'); })
+      .then(function () { return loadScript('js/everest-hero-variants.js'); })
+      .then(function () { return loadScript('../assets/js/everest-shell-ui.js'); })
+      .then(function () { return loadScript('../assets/js/everest-menu-roll.js'); })
+      .then(function () { return loadScript('https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js'); })
+      .then(function () { return loadScript('https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js'); })
+      .then(function () { return loadScript('../assets/js/everest-wechat.js'); })
+      .then(function () { return loadScript('../assets/js/everest-hero-glow.js'); })
+      .then(function () { return loadScript('../assets/js/everest-hero-stars.js'); })
+      .then(function () { return loadScript('../assets/js/everest-animations.js'); })
+      .then(function () { return loadScript('../assets/js/everest-frosted-cards.js'); })
+      .then(function () { return loadScript('../assets/js/everest-sector-cards.js'); })
+      .then(function () { return loadScript('../assets/js/everest-stack-cards.js'); })
+      .then(function () { return loadScript('../assets/js/everest-animations-v2.js'); })
+      .then(function () {
+        if (window.EverestAnimationsInit) window.EverestAnimationsInit();
+        if (window.EverestSectorCardsInit) window.EverestSectorCardsInit();
+        if (window.EverestStackCardsInit) window.EverestStackCardsInit();
+        if (window.EverestAnimationsV2Init) window.EverestAnimationsV2Init();
+        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        return new Promise(function (resolve, reject) {
+          var s = document.createElement('script');
+          s.type = 'module';
+          s.src = '../assets/js/everest-globe.js';
+          s.onload = resolve;
+          s.onerror = reject;
+          document.body.appendChild(s);
+        });
+      })
+      .catch(function (err) {
+        console.error('Preview load error:', err);
+        document.querySelectorAll('.will-animate').forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+      });
+  </script>
+</body>
+</html>

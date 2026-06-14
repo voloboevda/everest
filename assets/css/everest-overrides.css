@@ -1,0 +1,151 @@
+/**
+ * Everest Trade — Tilda overrides
+ * Logo palette: #003048 · #3D7F96 · #C8A45A · Switzer · Instrument Serif
+ */
+
+:root {
+  --everest-navy: #0b1f3b;
+  --everest-graphite: #e8ecf2;
+  --everest-gold: #c8a45a;
+  --everest-white: #ffffff;
+  --everest-bg: #0a0a0b;
+  --everest-off-white: #111113;
+  --everest-text-muted: rgba(232, 236, 242, 0.58);
+  --everest-radius: 4px;
+  --everest-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+  --everest-transition: 220ms ease;
+}
+
+/* Typography — CHI fallback */
+:lang(zh),
+.t-lang-zh,
+html[data-lang="zh"] {
+  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* Buttons */
+.everest-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 14px 28px;
+  background: var(--everest-navy);
+  color: var(--everest-white);
+  border: 1px solid var(--everest-navy);
+  border-radius: var(--everest-radius);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--everest-transition), border-color var(--everest-transition);
+}
+
+.everest-btn-primary:hover {
+  background: #0d2847;
+  border-color: var(--everest-gold);
+}
+
+.everest-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--everest-navy);
+  border: 1px solid var(--everest-navy);
+  border-radius: var(--everest-radius);
+  cursor: pointer;
+  transition: border-color var(--everest-transition), color var(--everest-transition);
+}
+
+.everest-btn-secondary:hover {
+  border-color: var(--everest-gold);
+  color: var(--everest-graphite);
+}
+
+/* WeChat */
+.everest-wechat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 8px 14px;
+  background: rgba(61, 127, 150, 0.14);
+  color: #3d7f96;
+  border: 1px solid rgba(61, 127, 150, 0.35);
+  border-radius: var(--everest-radius);
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity var(--everest-transition);
+}
+
+.everest-wechat-btn:hover {
+  opacity: 0.92;
+}
+
+.everest-wechat-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(11, 31, 59, 0.5);
+  align-items: center;
+  justify-content: center;
+}
+
+.everest-wechat-popup.is-open {
+  display: flex;
+}
+
+.everest-wechat-popup__card {
+  background: var(--everest-white);
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: var(--everest-shadow);
+}
+
+.everest-wechat-popup__qr {
+  width: 200px;
+  height: 200px;
+  margin: 1rem auto;
+  background: var(--everest-off-white);
+  border: 1px dashed var(--everest-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--everest-text-muted);
+  font-size: 13px;
+}
+
+/* GSAP hooks */
+.will-animate {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .will-animate {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Form focus */
+.t-input,
+.t-select,
+.t-textarea {
+  transition: border-color var(--everest-transition);
+}
+
+.t-input:focus,
+.t-select:focus,
+.t-textarea:focus {
+  outline: 2px solid var(--everest-gold);
+  outline-offset: 1px;
+}

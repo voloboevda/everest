@@ -1,0 +1,1618 @@
+/**
+ * Everest Trade — Wibify-inspired dark premium (Bundle D)
+ * Logo navy #003048 · Teal #3D7F96 · Gold #C8A45A · Switzer · Instrument Serif · JetBrains Mono
+ */
+
+:root {
+  --navy: #0b1f3b;
+  --graphite: #e8ecf2;
+  --gold: #c8a45a;
+  --gold-bright: #e0c989;
+  --white: #ffffff;
+  --bg: #0a0a0b;
+  --bg-elevated: #111113;
+  --bg-card: rgba(17, 17, 19, 0.82);
+  --bg-card-hover: rgba(22, 22, 26, 0.92);
+  --off-white: #111113;
+  --accent: #3d7f96;
+  --accent-blue: #72d8f5;
+  --muted: rgba(255, 255, 255, 0.55);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(200, 164, 90, 0.35);
+  --shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+  --glow-gold: 0 0 24px rgba(200, 164, 90, 0.22);
+  --radius: 4px;
+  --radius-pill: 999px;
+  --transition: 220ms ease;
+  --container: 1200px;
+  --font-body: "Switzer", system-ui, sans-serif;
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --header-h: 72px;
+}
+
+.everest-root {
+  font-family: var(--font-body);
+  color: var(--graphite);
+  background: var(--bg);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+.everest-root h1,
+.everest-root h2,
+.everest-root h3,
+.everest-root .logo-text {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+.everest-root .text-serif,
+.everest-root .section-title em,
+.everest-root .hero-title em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: 0;
+}
+
+.everest-root .section-eyebrow {
+  display: block;
+  margin: 0 auto 16px;
+  max-width: fit-content;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.everest-root .section-eyebrow strong {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.everest-root * {
+  box-sizing: border-box;
+}
+
+.everest-root .container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.everest-root .skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 10000;
+  padding: 12px 20px;
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 600;
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+
+.everest-root .skip-link:focus {
+  top: 16px;
+}
+
+/* Header — Wibify floating pill */
+.everest-root .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  padding: 14px 20px;
+  pointer-events: none;
+  background: transparent;
+  border: none;
+}
+
+.everest-root .header-float {
+  pointer-events: auto;
+  max-width: min(920px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 6px 8px 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: rgba(7, 11, 18, 0.72);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background 0.35s ease;
+}
+
+.everest-root .header.is-scrolled .header-float {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(7, 11, 18, 0.92);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.everest-root .header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  gap: 16px;
+}
+
+.everest-root .will-animate-header {
+  opacity: 0;
+  transform: translateY(-12px);
+}
+
+.everest-root .will-animate-header.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.everest-root .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.everest-root .logo-img {
+  display: block;
+  height: 48px;
+  width: auto;
+}
+
+@media (max-width: 479px) {
+  .everest-root .logo-img {
+    height: 40px;
+  }
+}
+
+.everest-root .header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.everest-root .lang-switch {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.everest-root .lang-btn {
+  border: 1px solid transparent;
+  background: transparent;
+  min-height: 1.75rem;
+  padding: 0 10px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.everest-root .lang-btn:hover {
+  color: var(--white);
+  border-color: var(--border-strong);
+}
+
+.everest-root .lang-btn.active {
+  background: rgba(200, 164, 90, 0.12);
+  color: var(--gold-bright);
+  border-color: var(--border-strong);
+  box-shadow: var(--glow-gold);
+}
+
+/* Buttons — coss-button port (Everest palette) */
+.everest-root .btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 2.5rem;
+  padding: 0 1.5rem;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  border-radius: var(--radius);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.everest-root .btn:focus-visible {
+  outline: 1px solid rgba(200, 164, 90, 0.75);
+  outline-offset: 2px;
+}
+
+.everest-root .btn:disabled,
+.everest-root .btn.is-loading {
+  pointer-events: none;
+  opacity: 0.64;
+}
+
+.everest-root .btn .btn-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.everest-root .btn-sm {
+  min-height: 2rem;
+  padding: 0 1rem;
+  font-size: 0.8125rem;
+}
+
+.everest-root .btn-lg {
+  min-height: 2.75rem;
+  padding: 0 1.75rem;
+  font-size: 1rem;
+}
+
+.everest-root .btn-block {
+  width: 100%;
+}
+
+/* Wibify-style: dark glass default, gold gradient on hover */
+.everest-root .btn-primary {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.14);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.everest-root .btn-primary:hover {
+  color: var(--navy);
+  border-color: var(--border-strong);
+  background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 48%, #b8924f 100%);
+  box-shadow: var(--glow-gold);
+}
+
+.everest-root .btn-primary .btn-text::after {
+  content: " →";
+  opacity: 0.85;
+  transition: transform var(--transition);
+}
+
+.everest-root .btn-primary:hover .btn-text::after {
+  transform: translateX(2px);
+}
+
+/* outline — thin frame; gold rim on hover */
+.everest-root .btn-outline {
+  background: transparent;
+  color: var(--graphite);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+
+.everest-root .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--white);
+  border-color: var(--border-strong);
+  box-shadow: var(--glow-gold);
+}
+
+/* secondary — muted fill */
+.everest-root .btn-secondary {
+  color: var(--graphite);
+  border-color: var(--border);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.everest-root .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-strong);
+}
+
+.everest-root .btn.is-loading .btn-text {
+  visibility: hidden;
+}
+
+.everest-root .btn.is-loading::after {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: everest-btn-spin 0.65s linear infinite;
+}
+
+@keyframes everest-btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.everest-root .everest-wechat-btn {
+  background: rgba(61, 127, 150, 0.14);
+  color: var(--accent);
+  border: 1px solid rgba(61, 127, 150, 0.35);
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.everest-root .everest-wechat-btn:hover {
+  background: rgba(61, 127, 150, 0.22);
+  border-color: rgba(61, 127, 150, 0.55);
+  box-shadow: 0 0 16px rgba(61, 127, 150, 0.2);
+}
+
+/* Hero — full viewport; gradient tokens in everest-wibify-ui.css */
+.everest-root .hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.everest-root .hero::before {
+  display: none;
+}
+
+/* Per-language hero font pairs (sans + serif accent) */
+html[lang="ru"],
+html[lang="en"],
+html[lang="zh"] {
+  --hero-font-sans: "Switzer", var(--font-body), system-ui, sans-serif;
+  --hero-font-accent: "Instrument Serif", Georgia, serif;
+}
+
+html[lang="zh"] {
+  --hero-font-sans: "Noto Sans SC", system-ui, sans-serif;
+}
+
+.everest-root .hero {
+  --hero-accent-color: var(--accent, #3d7f96);
+  --hero-title-scale: 1;
+  --hero-accent-opacity: 1;
+  --hero-eyebrow-opacity: 0.28;
+  --hero-subtitle-opacity: 0.58;
+}
+
+.everest-root .hero-inner,
+.everest-root .hero-split {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  text-align: left;
+}
+
+.everest-root .hero-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 2rem;
+  min-height: calc(100dvh - var(--header-h) - 3rem);
+}
+
+@media (min-width: 980px) {
+  .everest-root .hero-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .everest-root .hero-copy {
+    max-width: min(560px, 46vw);
+  }
+}
+
+.everest-root .hero-copy {
+  position: relative;
+  z-index: 3;
+  max-width: 100%;
+}
+
+/* Hero stack: image (back) → stars → orbs → copy */
+.everest-root .hero-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.everest-root .hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 82% 46%;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+}
+
+.everest-root .hero-scene-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 5, 8, 0.94) 0%,
+      rgba(4, 5, 8, 0.78) 28%,
+      rgba(4, 5, 8, 0.42) 46%,
+      transparent 62%
+    ),
+    linear-gradient(180deg, rgba(4, 5, 8, 0.35) 0%, transparent 28%, transparent 72%, rgba(4, 5, 8, 0.2) 100%);
+  pointer-events: none;
+}
+
+@media (min-width: 980px) and (max-width: 1199px) {
+  .everest-root .hero-image {
+    object-position: 78% 48%;
+  }
+}
+
+@media (max-width: 979px) {
+  .everest-root .hero-image {
+    object-fit: cover;
+    object-position: 72% 52%;
+  }
+
+  .everest-root .hero-scene-shade {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(4, 5, 8, 0.92) 0%,
+        rgba(4, 5, 8, 0.7) 34%,
+        rgba(4, 5, 8, 0.35) 52%,
+        transparent 68%
+      ),
+      linear-gradient(180deg, rgba(4, 5, 8, 0.45) 0%, transparent 32%);
+  }
+}
+
+.everest-root .hero-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.everest-root .hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.everest-root .hero-stars__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.everest-root .hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 28px;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, var(--hero-eyebrow-opacity));
+}
+
+.everest-root .hero-eyebrow-line {
+  flex-shrink: 0;
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.85;
+}
+
+.everest-root .hero-eyebrow-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  white-space: nowrap;
+}
+
+.everest-root .hero-eyebrow-index {
+  font-weight: 500;
+}
+
+.everest-root .hero-title {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1.08;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.everest-root .hero-title--display {
+  font-family: var(--hero-font-sans);
+  font-size: calc(clamp(2.35rem, 5.6vw, 4.1rem) * var(--hero-title-scale));
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.everest-root .hero-title--whipped {
+  line-height: 1.02;
+}
+
+.everest-root .hero-title--whipped .hero-line {
+  display: block;
+  white-space: nowrap;
+}
+
+@media (max-width: 479px) {
+  html[lang="ru"] .everest-root .hero-title--whipped.hero-title--display,
+  html[lang="en"] .everest-root .hero-title--whipped.hero-title--display {
+    font-size: calc(clamp(1.85rem, 8vw, 2.35rem) * var(--hero-title-scale));
+  }
+}
+
+html[lang="ru"] .everest-root .hero-title--display {
+  font-size: calc(clamp(2.1rem, 5vw, 3.65rem) * var(--hero-title-scale));
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+html[lang="zh"] .everest-root .hero-title--display {
+  font-size: calc(clamp(1.9rem, 4.8vw, 3.2rem) * var(--hero-title-scale));
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: 0.02em;
+  max-width: none;
+}
+
+.everest-root .hero-title--display .hero-accent {
+  font-family: var(--hero-font-accent);
+  font-style: italic;
+  font-weight: 400;
+  opacity: var(--hero-accent-opacity);
+  letter-spacing: 0;
+}
+
+.everest-root .hero-title--display .hero-accent--blue {
+  color: var(--accent-blue, #72d8f5);
+}
+
+.everest-root .hero-title--display .hero-accent--gold {
+  color: var(--gold, #c8a45a);
+}
+
+html[lang="zh"] .everest-root .hero-title--display .hero-accent {
+  font-style: normal;
+  font-weight: 500;
+}
+
+.everest-root .hero-subtitle {
+  font-size: 1.0625rem;
+  color: rgba(232, 236, 242, 0.72);
+  margin-bottom: 36px;
+  max-width: 540px;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .everest-root .hero-split {
+    min-height: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .everest-root .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .everest-root .hero-buttons .shiny-cta,
+  .everest-root .hero-buttons .outline-cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.everest-root .hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Hero Reveal — pre-scroll entrance (GSAP drives motion) */
+.everest-root .hero--pending-reveal .hero-scene,
+.everest-root .hero--pending-reveal .hero-stars,
+.everest-root .hero--pending-reveal .hero-glow {
+  opacity: 0;
+}
+
+.everest-root .hero--pending-reveal .hero-scene-shade {
+  opacity: 0;
+}
+
+.everest-root .hero--pending-reveal .hero-copy .block-eyebrow,
+.everest-root .hero--pending-reveal .hero-subtitle,
+.everest-root .hero--pending-reveal .hero-buttons {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.everest-root .hero--pending-reveal .hero-copy .block-eyebrow__line {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.everest-root .hero--pending-reveal .hero-title--whipped .hero-line {
+  overflow: hidden;
+}
+
+.everest-root .hero--revealed .hero-copy .block-eyebrow,
+.everest-root .hero--revealed .hero-subtitle,
+.everest-root .hero--revealed .hero-buttons,
+.everest-root .hero--revealed .hero-title {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Sections */
+.everest-root .section {
+  position: relative;
+  padding: 88px 0;
+}
+
+.everest-root .section--alt {
+  background: var(--off-white);
+  border-block: 1px solid var(--border);
+}
+
+.everest-root .section-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  margin-bottom: 12px;
+  text-align: center;
+  line-height: 1.12;
+}
+
+.everest-root .section-subtitle {
+  color: var(--muted);
+  max-width: 720px;
+  margin: 0 auto 40px;
+}
+
+.everest-root .section-header + .grid-2,
+.everest-root .section-header + .grid-3,
+.everest-root .section-header + .logistics-grid,
+.everest-root .section-header + .map-container {
+  margin-top: 0;
+}
+
+.everest-root .geo-section .section-header {
+  max-width: none;
+}
+
+.everest-root .geo-section .section-header .section-subtitle {
+  margin-bottom: 2rem;
+}
+
+.everest-root .grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.everest-root .grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.everest-root .card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: none;
+  transition:
+    border-color var(--transition),
+    background var(--transition),
+    transform var(--transition);
+}
+
+.everest-root .section--alt .card {
+  background: var(--bg-card);
+}
+
+.everest-root .card:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+}
+
+/* Frosted glass cards — tilt + cursor glare */
+.everest-root .frosted-card-container {
+  perspective: 1000px;
+}
+
+.everest-root .card.frosted-card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(12, 18, 28, 0.65);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.12s ease-out,
+    border-color var(--transition);
+  will-change: transform;
+}
+
+.everest-root .card.frosted-card::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  background: radial-gradient(
+    200px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(200, 164, 90, 0.18),
+    transparent 65%
+  );
+}
+
+.everest-root .card.frosted-card:hover {
+  border-color: rgba(200, 164, 90, 0.45);
+}
+
+.everest-root .card.frosted-card:hover::after {
+  opacity: 1;
+}
+
+.everest-root .section--alt .card.frosted-card {
+  background: rgba(12, 18, 28, 0.72);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .everest-root .card.frosted-card {
+    transition: border-color var(--transition);
+  }
+
+  .everest-root .card.frosted-card::after {
+    display: none;
+  }
+}
+
+.everest-root .card h3 {
+  font-size: 1.05rem;
+  margin: 12px 0 8px;
+}
+
+.everest-root .card-icon-img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.everest-root .expertise-card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Logistics */
+.everest-root .logistics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.everest-root .logistics-card {
+  text-align: center;
+  padding: 32px 20px;
+}
+
+.everest-root .logistics-card .term {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.everest-root .cargo-types {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  color: var(--muted);
+}
+
+/* Geography — dark cobe globe (dot landmass) */
+.everest-root .map-container {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.everest-root .everest-globe__stage {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  user-select: none;
+}
+
+.everest-root .everest-globe__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  border-radius: 50%;
+  touch-action: none;
+}
+
+.everest-root .everest-globe__label {
+  position: absolute;
+  bottom: anchor(top);
+  left: anchor(center);
+  translate: -50% 0;
+  margin-bottom: 10px;
+  padding: 4px 10px;
+  background: rgba(10, 10, 11, 0.9);
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+  transition: opacity 0.3s ease, filter 0.3s ease, visibility 0.25s ease;
+}
+
+.everest-root .everest-globe__label.is-hidden-for-route {
+  visibility: hidden;
+  opacity: 0 !important;
+  filter: none !important;
+}
+
+.everest-root .everest-globe__label[data-marker-id="russia"] {
+  opacity: var(--cobe-visible-russia, 0);
+  filter: blur(calc((1 - var(--cobe-visible-russia, 0)) * 8px));
+}
+
+.everest-root .everest-globe__label[data-marker-id="china"] {
+  opacity: var(--cobe-visible-china, 0);
+  filter: blur(calc((1 - var(--cobe-visible-china, 0)) * 8px));
+}
+
+.everest-root .everest-globe__label[data-marker-id="india"] {
+  opacity: var(--cobe-visible-india, 0);
+  filter: blur(calc((1 - var(--cobe-visible-india, 0)) * 8px));
+}
+
+.everest-root .everest-globe__label[data-marker-id="middle_east"] {
+  opacity: var(--cobe-visible-middle_east, 0);
+  filter: blur(calc((1 - var(--cobe-visible-middle_east, 0)) * 8px));
+}
+
+.everest-root .everest-globe__label[data-marker-id="southeast_asia"] {
+  opacity: var(--cobe-visible-southeast_asia, 0);
+  filter: blur(calc((1 - var(--cobe-visible-southeast_asia, 0)) * 8px));
+}
+
+/* Unified hub markers — warm white, no teal/cyan split */
+.everest-root .everest-globe__hub {
+  position: absolute;
+  bottom: anchor(center);
+  left: anchor(center);
+  translate: -50% 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+.everest-root .everest-globe__hub-core {
+  position: relative;
+  z-index: 2;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 0 0 3px rgba(10, 10, 11, 0.95), 0 0 12px rgba(200, 164, 90, 0.35);
+}
+
+.everest-root .everest-globe__hub-pulse {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  opacity: 0;
+  animation: everest-hub-pulse 2s ease-out infinite;
+}
+
+.everest-root .everest-globe__hub-pulse--delay {
+  animation-delay: 0.65s;
+}
+
+@keyframes everest-hub-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(3.8);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .everest-root .everest-globe__hub-pulse {
+    animation: none;
+    display: none;
+  }
+}
+
+.everest-root .everest-globe__arc-label {
+  position: absolute;
+  bottom: anchor(top);
+  left: anchor(center);
+  translate: -50% -10px;
+  margin-bottom: 0;
+  padding: 4px 10px;
+  background: rgba(10, 10, 11, 0.9);
+  color: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0;
+  box-shadow: none;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: var(--arc-vis, 0);
+  filter: blur(calc((1 - var(--arc-vis, 0)) * 6px));
+  transition: opacity 0.3s ease, filter 0.3s ease, visibility 0.25s ease;
+}
+
+.everest-root .everest-globe__legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+}
+
+.everest-root .everest-globe__legend li {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+}
+
+.everest-root .everest-globe__legend-dot {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+/* Pulse rings are DOM siblings for a11y fallback — animation anchored on dot via ::after */
+.everest-root .everest-globe__legend-pulse {
+  display: none !important;
+}
+
+.everest-root .everest-globe__legend li.is-route-active .everest-globe__legend-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--accent, #3d7f96);
+  pointer-events: none;
+  transform-origin: center;
+  animation: everest-legend-pulse 2s ease-out infinite;
+}
+
+@keyframes everest-legend-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .everest-root .everest-globe__legend li.is-route-active .everest-globe__legend-dot::after {
+    animation: none;
+    display: none;
+  }
+
+  .everest-root .everest-globe__legend li.is-route-active .everest-globe__legend-dot {
+    box-shadow: 0 0 8px rgba(61, 127, 150, 0.45);
+  }
+}
+
+
+/* Cooperation */
+.everest-root .gold-check {
+  color: var(--gold);
+  margin-right: 8px;
+}
+
+.everest-root .cooperation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+/* Form — contact-card layout (21.dev → Tilda) */
+.everest-root .contact-card {
+  position: relative;
+  display: grid;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+
+.everest-root .contact-card__corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--gold);
+  pointer-events: none;
+  user-select: none;
+}
+
+.everest-root .contact-card__corner--tl {
+  top: -12px;
+  left: -12px;
+}
+
+.everest-root .contact-card__corner--tr {
+  top: -12px;
+  right: -12px;
+}
+
+.everest-root .contact-card__corner--bl {
+  bottom: -12px;
+  left: -12px;
+}
+
+.everest-root .contact-card__corner--br {
+  right: -12px;
+  bottom: -12px;
+}
+
+.everest-root .contact-card__main {
+  padding: 32px 24px;
+}
+
+.everest-root .contact-card__title {
+  margin: 0 0 16px;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--navy);
+}
+
+.everest-root .contact-card__desc {
+  margin: 0 0 24px;
+  max-width: 36rem;
+  font-size: clamp(0.875rem, 2vw, 1.125rem);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.everest-root .contact-card__info {
+  display: grid;
+  gap: 8px;
+}
+
+.everest-root .contact-card__info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.everest-root .contact-card__info-icon {
+  flex-shrink: 0;
+  padding: 12px;
+  border-radius: var(--radius);
+  background: rgba(232, 236, 241, 0.6);
+  color: var(--navy);
+}
+
+.everest-root .contact-card__info-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.everest-root .contact-card__info-label {
+  margin: 0 0 2px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy);
+}
+
+.everest-root .contact-card__info-value {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.everest-root .contact-card__form {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid var(--border);
+}
+
+.everest-root .contact-form {
+  width: 100%;
+}
+
+.everest-root .contact-form__submit {
+  width: 100%;
+}
+
+
+@media (min-width: 768px) {
+  .everest-root .contact-card {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .everest-root .contact-card__main {
+    padding: 40px 32px;
+  }
+
+  .everest-root .contact-card__info {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .everest-root .contact-card__info-item--wide {
+    grid-column: span 2;
+  }
+
+  .everest-root .contact-card__form {
+    border-top: none;
+    border-left: 1px solid var(--border);
+  }
+}
+
+@media (min-width: 1024px) {
+  .everest-root .contact-card {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .everest-root .contact-card__info {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .everest-root .contact-card__info-item--wide {
+    grid-column: span 2;
+  }
+}
+
+.everest-root .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.everest-root .form-group {
+  margin-bottom: 16px;
+}
+
+.everest-root .form-group label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.everest-root .form-group input,
+.everest-root .form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font: inherit;
+  color: var(--graphite);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.everest-root .form-group input:focus,
+.everest-root .form-group textarea:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.everest-root .consent-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.everest-root .form-honeypot {
+  position: absolute;
+  left: -9999px;
+}
+
+.everest-root #form-status {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--gold);
+}
+
+/* Footer — columns */
+.everest-root .footer {
+  position: relative;
+  margin-top: 0;
+  padding: 3rem 0 0;
+  background: var(--bg);
+  color: rgba(255, 255, 255, 0.82);
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.everest-root .footer-shell {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container);
+  padding-bottom: 1.25rem;
+}
+
+.everest-root .footer-columns {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .everest-root .footer-columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem 1.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  /* Equal visual gaps: columns shrink to content, free space split evenly */
+  .everest-root .footer-columns {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0;
+  }
+
+  .everest-root .footer-col {
+    flex: 0 0 auto;
+  }
+}
+
+.everest-root .footer-col {
+  margin: 0;
+  min-width: 0;
+}
+
+.everest-root .footer-col-title {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.everest-root .footer-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.everest-root .footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.everest-root .footer-links a {
+  display: inline-block;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.everest-root .footer-link-external {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.everest-root .footer-link-text {
+  transition: color 0.2s ease;
+}
+
+.everest-root .footer-link-arrow {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: var(--gold);
+}
+
+.everest-root .footer-links a:hover,
+.everest-root .footer-links a:focus-visible {
+  color: var(--accent);
+}
+
+.everest-root .footer-link-external:hover .footer-link-text,
+.everest-root .footer-link-external:focus-visible .footer-link-text {
+  color: var(--accent);
+}
+
+@media (min-width: 1024px) {
+  .everest-root .footer-col--legal .footer-links a {
+    white-space: nowrap;
+  }
+}
+
+.everest-root .footer-bottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.everest-root .footer-copy {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* Footer — oversized wordmark overlay (faizur / COSMOS pattern) */
+.everest-root .footer-wordmark {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(5.5rem, 20vw, 8.75rem);
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.everest-root .footer-wordmark .container {
+  position: relative;
+  height: 100%;
+}
+
+.everest-root .footer-wordmark-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(4.5rem, 18vw, 16rem);
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  text-transform: lowercase;
+  color: rgba(255, 255, 255, 0.065);
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .everest-root .footer-wordmark {
+    height: clamp(6.25rem, 18vw, 9.25rem);
+  }
+
+  .everest-root .footer-wordmark-text {
+    font-size: clamp(5.5rem, 17vw, 18rem);
+  }
+}
+
+/* Modals */
+.everest-root .modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: rgba(11, 31, 59, 0.5);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.everest-root .modal.is-open {
+  display: flex;
+}
+
+.everest-root .modal-content {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--graphite);
+  border-radius: var(--radius);
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.everest-root .modal-content.large {
+  max-width: 800px;
+}
+
+.everest-root .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.everest-root .modal-body {
+  padding: 24px;
+}
+
+.everest-root .modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.everest-root .partners--hidden {
+  display: none !important;
+}
+
+.everest-root .will-animate .container {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.everest-root .will-animate.is-visible .container {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .everest-root .will-animate .container,
+  .everest-root .will-animate-header {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* No-JS / preview fallback: show content after paint */
+.everest-root .will-animate .container,
+.everest-root .will-animate-footer {
+  animation: everest-reveal-fallback 0.01s 2s forwards;
+}
+
+@keyframes everest-reveal-fallback {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .everest-root .grid-3,
+  .everest-root .logistics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .everest-root .grid-2,
+  .everest-root .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Hide duplicate native Tilda form block */
+#rec2091691681 {
+  display: none !important;
+}

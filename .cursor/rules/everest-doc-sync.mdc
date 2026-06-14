@@ -1,0 +1,15 @@
+---
+description: Living documentation — keep docs current and notify user
+alwaysApply: true
+---
+
+# Doc sync
+
+When you change structure, integrations, design tokens, or content strategy:
+
+1. Update the relevant file under `docs/`.
+2. Append a dated entry to `docs/agents-log.md` (what, why, file path).
+3. If the work type is a new narrow-task category, add a row to `docs/NEW-CHAT.md`.
+4. Notify the user in Russian in one short paragraph.
+
+Do not create new markdown files unless the plan or user requests them.

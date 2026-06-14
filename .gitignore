@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.DS_Store
+*.log
+.cursor/mcp.json
+.tmp-uipro/
+.tmp-*
+*.artifact.json
+
+# ui-lab build artifacts
+ui-lab/node_modules/
+ui-lab/dist/
+ui-lab/.vite/
+ui-lab/tsconfig.tsbuildinfo

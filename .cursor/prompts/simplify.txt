@@ -1,0 +1,12 @@
+Project: Everest Trade
+Path: /home/vda/cursor/web design
+
+Read: .cursor/agents/simplifier.md, .cursor/product-logic.md
+
+Task: Simplify [FILE or SECTION]. Remove only — do not add.
+
+Target: Linear-level clarity. One primary action. Less text, less UI, more whitespace.
+
+Preserve: i18n keys, form functionality, deploy-critical behavior.
+
+Log removals in docs/agents-log.md.

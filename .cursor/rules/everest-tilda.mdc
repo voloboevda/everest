@@ -1,0 +1,16 @@
+---
+description: Tilda build rules — Zero Block, GSAP, custom assets
+globs: assets/**,docs/tilda-*,docs/design-*
+alwaysApply: false
+---
+
+# Everest Tilda Build
+
+- Stack: Tilda Zero Block + external `assets/css` + `assets/js` (no 500+ line inline blocks).
+- GSAP: load from CDN in Site Settings footer; logic in `assets/js/everest-animations.js`.
+- Target elements by stable classes (`hero-title`, `sector-card`, `btn-rfq-primary`), not Tilda `rec*` IDs.
+- All 5 Zero Block breakpoints: 320, 480, 640, 980, 1200.
+- Respect `prefers-reduced-motion`.
+- Brand defaults from customer brief: `#0B1F3B`, `#2E2E2E`, `#C8A45A`, Montserrat, Roboto, Noto Sans SC for CHI.
+- Single RFQ form per language version — no duplicate field blocks.
+- Analytics: `analytics-global.js` on all versions; `analytics-china.js` on CHI/zh only (stubs until IDs).

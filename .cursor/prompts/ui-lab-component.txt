@@ -1,0 +1,18 @@
+Project: Everest Trade
+Path: /home/vda/cursor/web design
+
+Read: .cursor/cursor-rules.md, docs/NEW-CHAT.md (UI Lab section)
+
+Task: Integrate 21st.dev / shadcn component into ui-lab.
+
+Component URL: [PASTE 21st.dev URL]
+CLI: npx shadcn@latest add [URL]
+
+Rules:
+- ui-lab/ only — not Tilda until ported
+- Map to Bundle D tokens (ui-lab/src/index.css)
+- Lucide icons only
+- Demo in App.tsx with Everest B2B copy (RFQ funnel)
+- npm run build must pass
+
+After: docs/agents-log.md

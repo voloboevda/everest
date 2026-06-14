@@ -1,0 +1,747 @@
+<!-- Everest Trade — single T123 block (paste entire file into one HTML block) -->
+<!-- 1) Push repo to GitHub. 2) Pass jsDelivr base: https://cdn.jsdelivr.net/gh/USER/REPO@main -->
+
+<!-- Everest Trade — head assets (also included in tilda/t123-single.html) -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/everest-favicon-32.png">
+<link rel="apple-touch-icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/everest-favicon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/tilda/css/everest-site.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/tilda/css/everest-site-v2.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/css/everest-overrides.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/css/everest-wibify-ui.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/css/shiny-button.css">
+<script>
+  window.__EVEREST_CONFIG = {
+    formEmail: "info@everestcentr.com",
+    tildaFormSelector: "",
+    webhookUrl: "",
+    formSubjectPrefix: "Everest Trade"
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/analytics-global.js"></script>
+
+<!-- Everest Trade — paste inside T123 block rec2091603121 (replace old HTML) -->
+<div class="everest-root everest-root--v2" id="everest-app">
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true" focusable="false">
+    <symbol id="sector-metals" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol>
+    <symbol id="sector-energy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5"/><path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16"/><path d="M2 21h13"/><path d="M3 9h11"/></symbol>
+    <symbol id="sector-agri" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22 16 8"/><path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z"/><path d="M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/><path d="M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/><path d="M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/></symbol>
+    <symbol id="sector-mineral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 3 8 9l4 13 4-13-2.5-6"/><path d="M17 3a2 2 0 0 1 1.6.8l3 4a2 2 0 0 1 .013 2.382l-7.99 10.986a2 2 0 0 1-3.247 0l-7.99-10.986A2 2 0 0 1 2.4 7.8l2.998-3.997A2 2 0 0 1 7 3z"/><path d="M2 9h20"/></symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="tag-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></symbol>
+    <symbol id="tag-clipboard-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></symbol>
+    <symbol id="tag-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+    <symbol id="tag-file-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+    <symbol id="tag-warehouse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11"/><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 1.132-1.803l7.95-3.974a2 2 0 0 1 1.837 0l7.948 3.974A2 2 0 0 1 22 8z"/><path d="M6 13h12"/><path d="M6 17h12"/></symbol>
+    <symbol id="tag-files" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8"/><path d="M16.706 2.706A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.706-1.706z"/><path d="M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1"/></symbol>
+    <symbol id="tag-badge-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="tag-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+    <symbol id="tag-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+    <symbol id="tag-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></symbol>
+    <symbol id="tag-shield-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="tag-ship" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10.189V14"/><path d="M12 2v3"/><path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-8.188-3.639a2 2 0 0 0-1.624 0L3 14a11.6 11.6 0 0 0 2.81 7.76"/><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></symbol>
+    <symbol id="about-handshake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></symbol>
+    <symbol id="about-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
+    <symbol id="about-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+    <symbol id="about-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></symbol>
+    <symbol id="exp-deal" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="18" width="36" height="28" rx="2"/><path d="M22 30h20M22 38h14"/><path d="M32 10v8"/><circle cx="32" cy="14" r="2" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="exp-import" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M14 46h36"/><path d="M28 34l8-12 8 12"/><path d="M36 22v24"/><path d="M18 46V30l6-8h16l6 8v16"/></symbol>
+    <symbol id="exp-logistics" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M12 42h40"/><path d="M18 42V28h26v14"/><path d="M18 28l4-8h18l4 8"/><circle cx="24" cy="46" r="4"/><circle cx="42" cy="46" r="4"/></symbol>
+    <symbol id="exp-finance" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M18 46V28l14-8 14 8v18"/><path d="M26 46v-10h12v10"/><path d="M32 20v6"/><path d="M28 26h8"/></symbol>
+    <symbol id="exp-contract" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14h24l8 8v30H20V14z"/><path d="M28 30h16M28 38h12M28 46h8"/><path d="M44 14v8h8"/></symbol>
+    <symbol id="exp-analytics" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M14 48V18"/><path d="M14 48h38"/><path d="M22 40V32M32 40V26M42 40V22"/><circle cx="22" cy="32" r="2" fill="currentColor" stroke="none"/><circle cx="32" cy="26" r="2" fill="currentColor" stroke="none"/><circle cx="42" cy="22" r="2" fill="currentColor" stroke="none"/></symbol>
+  </svg>
+  <a class="skip-link" href="#main-content" data-i18n="skip_main">Перейти к содержимому</a>
+
+  <nav class="nav header will-animate-header" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand logo" data-aria-i18n="logo_aria">
+        <img
+          class="nav-logo"
+          src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/everest-logo-nav.png"
+          alt=""
+          width="871"
+          height="685"
+          decoding="async"
+        >
+      </a>
+      <button type="button" class="shiny-cta nav-cta" data-open-rfq>
+        <span>
+          <span data-i18n="btn_request">Отправить запрос</span>
+          <span class="shiny-cta__arrow" aria-hidden="true">→</span>
+        </span>
+      </button>
+      <button
+        type="button"
+        class="nav-burger"
+        id="nav-burger"
+        aria-label="Menu"
+        aria-expanded="false"
+        aria-controls="menu-overlay"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="menu-overlay" id="menu-overlay" aria-hidden="true">
+    <div class="menu-overlay-bg" aria-hidden="true"></div>
+    <div class="menu-overlay-inner">
+      <ul class="menu-list">
+        <li class="menu-list-item">
+          <a href="#about" class="menu-link" data-menu-close>
+            <span class="text-roll" data-i18n="footer_about">О компании</span>
+          </a>
+        </li>
+        <li class="menu-list-item">
+          <a href="#sectors" class="menu-link" data-menu-close>
+            <span class="text-roll" data-i18n="footer_sectors">Направления</span>
+          </a>
+        </li>
+        <li class="menu-list-item">
+          <a href="#geography" class="menu-link" data-menu-close>
+            <span class="text-roll" data-i18n="footer_geography">География</span>
+          </a>
+        </li>
+        <li class="menu-list-item">
+          <a href="#cooperation" class="menu-link" data-menu-close>
+            <span class="text-roll" data-i18n="footer_cooperation">Сотрудничество</span>
+          </a>
+        </li>
+        <li class="menu-list-item">
+          <button type="button" class="menu-link menu-link--btn" data-open-rfq>
+            <span class="text-roll" data-i18n="footer_request">Отправить запрос</span>
+          </button>
+        </li>
+      </ul>
+      <div class="menu-foot">
+        <div class="lang-switcher lang-switcher--segments lang-switcher--menu" role="group" data-aria-i18n="lang_aria">
+          <button type="button" class="lang-btn lang-switcher-btn active" data-lang="ru" aria-pressed="true" data-active="true">РУ</button>
+          <button type="button" class="lang-btn lang-switcher-btn" data-lang="en" aria-pressed="false">ENG</button>
+          <button type="button" class="lang-btn lang-switcher-btn" data-lang="zh" aria-pressed="false">中文</button>
+        </div>
+        <a class="menu-email" href="mailto:info@everestcentr.com">info@everestcentr.com</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="rfq-backdrop" id="rfq-backdrop" aria-hidden="true"></div>
+  <div class="rfq-modal" id="rfq-modal" role="dialog" aria-modal="true" aria-labelledby="rfq-modal-title" aria-hidden="true">
+    <div class="rfq-modal-card">
+      <button type="button" class="rfq-modal-close" data-close-rfq aria-label="Close">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+      <header class="cta-form-head">
+        <p class="cta-form-eyebrow" data-i18n="modal_contact_eyebrow">Контакт</p>
+        <p class="cta-form-title cta-form-title--modal" id="rfq-modal-title" data-i18n-html="modal_form_title">Начать <em>запрос.</em></p>
+        <p class="rfq-modal-sub" data-i18n="modal_form_sub"></p>
+      </header>
+      <form id="contact-form" class="contact-form" novalidate>
+        <div class="form-honeypot"><input type="text" name="website_hp" tabindex="-1" autocomplete="off"></div>
+        <div class="contact-form-row">
+          <label class="contact-field">
+            <span class="contact-field-label"><span data-i18n="firstname_label">Имя</span> <span class="contact-field-required" aria-hidden="true">*</span></span>
+            <input class="contact-field-input" type="text" name="FirstName" required autocomplete="given-name" data-i18n-placeholder="ph_firstname">
+          </label>
+          <label class="contact-field">
+            <span class="contact-field-label"><span data-i18n="lastname_label">Фамилия</span> <span class="contact-field-required" aria-hidden="true">*</span></span>
+            <input class="contact-field-input" type="text" name="LastName" required autocomplete="family-name" data-i18n-placeholder="ph_lastname">
+          </label>
+        </div>
+        <label class="contact-field">
+          <span class="contact-field-label"><span data-i18n="email_label">Email</span> <span class="contact-field-required" aria-hidden="true">*</span></span>
+          <input class="contact-field-input" type="email" name="Email" required autocomplete="email" data-i18n-placeholder="ph_email">
+        </label>
+        <label class="contact-field">
+          <span class="contact-field-label"><span data-i18n="phone_label">Телефон</span> <span class="contact-field-required" aria-hidden="true">*</span></span>
+          <input class="contact-field-input" type="tel" name="Phone" required autocomplete="tel" data-i18n-placeholder="ph_phone">
+        </label>
+        <div class="contact-form-row">
+          <label class="contact-field">
+            <span class="contact-field-label"><span data-i18n="company_label">Компания</span> <span class="contact-field-optional" data-i18n="label_optional">— optional</span></span>
+            <input class="contact-field-input" type="text" name="Company" autocomplete="organization" data-i18n-placeholder="ph_company">
+          </label>
+          <label class="contact-field">
+            <span class="contact-field-label"><span data-i18n="website_label">Сайт компании</span> <span class="contact-field-optional" data-i18n="label_optional">— optional</span></span>
+            <input class="contact-field-input" type="url" name="Website" inputmode="url" data-i18n-placeholder="ph_website">
+          </label>
+        </div>
+        <label class="contact-field">
+          <span class="contact-field-label"><span data-i18n="message_label">Сообщение</span> <span class="contact-field-optional" data-i18n="label_optional">— optional</span></span>
+          <textarea class="contact-field-input contact-field-textarea" name="Message" rows="4" data-i18n-placeholder="ph_message"></textarea>
+        </label>
+        <label class="contact-checkbox">
+          <input type="checkbox" name="Consent" required>
+          <span data-i18n-html="consent_personal"></span>
+        </label>
+        <button type="submit" class="shiny-cta contact-form-submit">
+          <span data-i18n="submit_btn">Отправить запрос →</span>
+        </button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero hero--pending-reveal" aria-labelledby="hero-heading">
+      <div class="hero-scene" aria-hidden="true">
+        <picture>
+          <source
+            media="(min-width: 1200px)"
+            srcset="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/hero-ship-full-desktop.jpg"
+            width="3840"
+            height="2880"
+          >
+          <source
+            media="(min-width: 980px)"
+            srcset="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/hero-ship-full-tablet.jpg"
+            width="2560"
+            height="1920"
+          >
+          <source
+            media="(max-width: 979px)"
+            srcset="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/hero-ship-full-mobile.jpg"
+            width="1920"
+            height="1440"
+          >
+          <img
+            class="hero-image"
+            src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/hero-ship-full-desktop.jpg"
+            alt=""
+            data-i18n-alt="hero_image_alt"
+            width="3840"
+            height="2880"
+            decoding="async"
+            fetchpriority="high"
+          >
+        </picture>
+        <div class="hero-scene-shade" aria-hidden="true"></div>
+      </div>
+      <div class="hero-stars" aria-hidden="true"></div>
+      <div class="hero-glow" aria-hidden="true">
+        <div class="hero-glow__orb hero-glow__orb--gold"></div>
+        <div class="hero-glow__orb hero-glow__orb--blue"></div>
+      </div>
+      <div class="container hero-split">
+        <div class="hero-copy">
+          <p class="block-eyebrow">
+            <span class="block-eyebrow__line" aria-hidden="true"></span>
+            <span class="block-eyebrow__index" data-i18n="sec01_index">[01]</span>
+            <span class="block-eyebrow__label" data-i18n="hero_eyebrow">Everest Trade</span>
+          </p>
+          <h1 id="hero-heading" class="hero-title hero-title--display hero-title--whipped"></h1>
+          <p class="hero-subtitle"></p>
+          <div class="hero-buttons">
+            <button type="button" class="shiny-cta hero-cta" data-open-rfq>
+              <span>
+                <span data-i18n="btn_request">Отправить запрос</span>
+                <span class="shiny-cta__arrow" aria-hidden="true">→</span>
+              </span>
+            </button>
+            <a href="#cooperation" class="outline-cta hero-cta">
+              <span>
+                <span class="outline-cta__dot" aria-hidden="true"></span>
+                <span data-i18n="btn_hero_secondary">Модели сотрудничества</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt will-animate" id="about">
+      <div class="container">
+        <header class="section-header section-header--compact">
+          <p class="block-eyebrow">
+            <span class="block-eyebrow__line" aria-hidden="true"></span>
+            <span class="block-eyebrow__index" data-i18n="sec02_index">[02]</span>
+            <span class="block-eyebrow__label" data-i18n="about_eyebrow"></span>
+          </p>
+          <h2 class="section-title section-title--display" data-i18n-html="about_title"></h2>
+        </header>
+        <div class="about-v2">
+          <div class="about-v2__story">
+            <p class="about-v2__lead" data-i18n="about_text"></p>
+          </div>
+          <div class="about-v2__principles" aria-label="Principles">
+            <article class="about-v2__principle">
+              <div class="about-v2__mark">
+                <span class="about-v2__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#about-handshake"/></svg></span>
+                <span class="about-v2__index">01</span>
+              </div>
+              <div class="about-v2__principle-body">
+                <h3 class="about-v2__principle-title" data-i18n="card1_title"></h3>
+                <p class="about-v2__principle-text" data-i18n="card1_text"></p>
+              </div>
+            </article>
+            <article class="about-v2__principle">
+              <div class="about-v2__mark">
+                <span class="about-v2__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#about-route"/></svg></span>
+                <span class="about-v2__index">02</span>
+              </div>
+              <div class="about-v2__principle-body">
+                <h3 class="about-v2__principle-title" data-i18n="card2_title"></h3>
+                <p class="about-v2__principle-text" data-i18n="card2_text"></p>
+              </div>
+            </article>
+            <article class="about-v2__principle">
+              <div class="about-v2__mark">
+                <span class="about-v2__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#about-globe"/></svg></span>
+                <span class="about-v2__index">03</span>
+              </div>
+              <div class="about-v2__principle-body">
+                <h3 class="about-v2__principle-title" data-i18n="card3_title"></h3>
+                <p class="about-v2__principle-text" data-i18n="card3_text"></p>
+              </div>
+            </article>
+            <article class="about-v2__principle">
+              <div class="about-v2__mark">
+                <span class="about-v2__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#about-award"/></svg></span>
+                <span class="about-v2__index">04</span>
+              </div>
+              <div class="about-v2__principle-body">
+                <h3 class="about-v2__principle-title" data-i18n="card4_title"></h3>
+                <p class="about-v2__principle-text" data-i18n="card4_text"></p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section will-animate" id="sectors">
+      <div class="container">
+        <header class="section-header">
+          <p class="block-eyebrow">
+            <span class="block-eyebrow__line" aria-hidden="true"></span>
+            <span class="block-eyebrow__index" data-i18n="sec03_index">[03]</span>
+            <span class="block-eyebrow__label" data-i18n="sectors_eyebrow"></span>
+          </p>
+          <h2 class="section-title section-title--display" data-i18n-html="sectors_title"></h2>
+          <p class="section-subtitle" data-i18n="sectors_subtitle"></p>
+        </header>
+        <div class="sector-grid-v2" data-sector-grid>
+          <article class="card sector-card-v2 frosted-card" data-sector-card>
+            <span class="sector-card-v2__index" aria-hidden="true">01</span>
+            <div class="sector-card-v2__head">
+              <span class="sector-card-v2__icon" data-sector-icon aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#sector-metals"/></svg></span>
+            </div>
+            <h3 class="sector-card-v2__title" data-i18n="sector_1"></h3>
+            <p class="sector-card-v2__desc" data-sector-desc data-i18n="sector_1_desc"></p>
+            <ul class="sector-card-v2__tags">
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-package"/></svg><span data-i18n="sector_1_b1"></span></li>
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-clipboard-check"/></svg><span data-i18n="sector_1_b2"></span></li>
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-truck"/></svg><span data-i18n="sector_1_b3"></span></li>
+            </ul>
+            <span class="sector-card-v2__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg></span>
+          </article>
+          <article class="card sector-card-v2 frosted-card" data-sector-card>
+            <span class="sector-card-v2__index" aria-hidden="true">02</span>
+            <div class="sector-card-v2__head">
+              <span class="sector-card-v2__icon" data-sector-icon aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#sector-energy"/></svg></span>
+            </div>
+            <h3 class="sector-card-v2__title" data-i18n="sector_2"></h3>
+            <p class="sector-card-v2__desc" data-sector-desc data-i18n="sector_2_desc"></p>
+            <ul class="sector-card-v2__tags">
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-file-text"/></svg><span data-i18n="sector_2_b1"></span></li>
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-warehouse"/></svg><span data-i18n="sector_2_b2"></span></li>
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-files"/></svg><span data-i18n="sector_2_b3"></span></li>
+            </ul>
+            <span class="sector-card-v2__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg></span>
+          </article>
+          <article class="card sector-card-v2 frosted-card" data-sector-card>
+            <span class="sector-card-v2__index" aria-hidden="true">03</span>
+            <div class="sector-card-v2__head">
+              <span class="sector-card-v2__icon" data-sector-icon aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#sector-agri"/></svg></span>
+            </div>
+            <h3 class="sector-card-v2__title" data-i18n="sector_3"></h3>
+            <p class="sector-card-v2__desc" data-sector-desc data-i18n="sector_3_desc"></p>
+            <ul class="sector-card-v2__tags">
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-badge-check"/></svg><span data-i18n="sector_3_b1"></span></li>
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-globe"/></svg><span data-i18n="sector_3_b2"></span></li>
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-calendar"/></svg><span data-i18n="sector_3_b3"></span></li>
+            </ul>
+            <span class="sector-card-v2__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg></span>
+          </article>
+          <article class="card sector-card-v2 frosted-card" data-sector-card>
+            <span class="sector-card-v2__index" aria-hidden="true">04</span>
+            <div class="sector-card-v2__head">
+              <span class="sector-card-v2__icon" data-sector-icon aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#sector-mineral"/></svg></span>
+            </div>
+            <h3 class="sector-card-v2__title" data-i18n="sector_4"></h3>
+            <p class="sector-card-v2__desc" data-sector-desc data-i18n="sector_4_desc"></p>
+            <ul class="sector-card-v2__tags">
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-building"/></svg><span data-i18n="sector_4_b1"></span></li>
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-shield-check"/></svg><span data-i18n="sector_4_b2"></span></li>
+              <li class="sector-card-v2__tag" data-sector-item><svg class="sector-card-v2__tag-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#tag-ship"/></svg><span data-i18n="sector_4_b3"></span></li>
+            </ul>
+            <span class="sector-card-v2__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg></span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt will-animate section--stack-pin" id="expertise">
+      <div class="container">
+        <header class="section-header">
+          <p class="block-eyebrow">
+            <span class="block-eyebrow__line" aria-hidden="true"></span>
+            <span class="block-eyebrow__index" data-i18n="sec04_index">[04]</span>
+            <span class="block-eyebrow__label" data-i18n="expertise_eyebrow"></span>
+          </p>
+          <h2 class="section-title section-title--display" data-i18n-html="expertise_title"></h2>
+          <p class="section-subtitle" data-i18n="expertise_subtitle"></p>
+        </header>
+        <div class="stack-cards stack-cards--expertise" data-stack-cards data-stack-scale="0.1" data-stack-dim="0.6" data-stack-scrub="0.1">
+          <article class="stack-card stack-card--expertise">
+            <div class="stack-card__visual stack-card__visual--illustration" aria-hidden="true">
+              <img class="expertise-card-v2__img" src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/expertise/exp-deal.png" alt="" width="1024" height="1024" loading="lazy" decoding="async">
+            </div>
+          <div class="stack-card__body">
+              <p class="stack-card__eyebrow"><span class="stack-card__step-current">01</span><span class="stack-card__step-sep"> / </span><span class="stack-card__step-total">06</span></p>
+              <h3 class="stack-card__title expertise-card-v2__title" data-i18n="exp_1"></h3>
+              <p class="stack-card__text expertise-card-v2__text" data-i18n="exp_1_text"></p>
+              <ul class="expertise-card-v2__tags">
+                <li data-i18n="exp_1_t1"></li><li data-i18n="exp_1_t2"></li><li data-i18n="exp_1_t3"></li>
+              </ul>
+            </div>
+            </article>
+          <article class="stack-card stack-card--expertise">
+            <div class="stack-card__visual stack-card__visual--illustration" aria-hidden="true">
+              <img class="expertise-card-v2__img" src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/expertise/exp-import.png" alt="" width="1024" height="768" loading="lazy" decoding="async">
+            </div>
+          <div class="stack-card__body">
+              <p class="stack-card__eyebrow"><span class="stack-card__step-current">02</span><span class="stack-card__step-sep"> / </span><span class="stack-card__step-total">06</span></p>
+              <h3 class="stack-card__title expertise-card-v2__title" data-i18n="exp_2"></h3>
+              <p class="stack-card__text expertise-card-v2__text" data-i18n="exp_2_text"></p>
+              <ul class="expertise-card-v2__tags">
+                <li data-i18n="exp_2_t1"></li><li data-i18n="exp_2_t2"></li><li data-i18n="exp_2_t3"></li>
+              </ul>
+            </div>
+            </article>
+          <article class="stack-card stack-card--expertise">
+            <div class="stack-card__visual stack-card__visual--illustration" aria-hidden="true">
+              <img class="expertise-card-v2__img" src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/expertise/exp-logistics.png" alt="" width="1024" height="768" loading="lazy" decoding="async">
+            </div>
+          <div class="stack-card__body">
+              <p class="stack-card__eyebrow"><span class="stack-card__step-current">03</span><span class="stack-card__step-sep"> / </span><span class="stack-card__step-total">06</span></p>
+              <h3 class="stack-card__title expertise-card-v2__title" data-i18n="exp_3"></h3>
+              <p class="stack-card__text expertise-card-v2__text" data-i18n="exp_3_text"></p>
+              <ul class="expertise-card-v2__tags">
+                <li data-i18n="exp_3_t1"></li><li data-i18n="exp_3_t2"></li><li data-i18n="exp_3_t3"></li>
+              </ul>
+            </div>
+            </article>
+          <article class="stack-card stack-card--expertise">
+            <div class="stack-card__visual stack-card__visual--illustration" aria-hidden="true">
+              <img class="expertise-card-v2__img" src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/expertise/exp-finance.png" alt="" width="1024" height="1024" loading="lazy" decoding="async">
+            </div>
+          <div class="stack-card__body">
+              <p class="stack-card__eyebrow"><span class="stack-card__step-current">04</span><span class="stack-card__step-sep"> / </span><span class="stack-card__step-total">06</span></p>
+              <h3 class="stack-card__title expertise-card-v2__title" data-i18n="exp_4"></h3>
+              <p class="stack-card__text expertise-card-v2__text" data-i18n="exp_4_text"></p>
+              <ul class="expertise-card-v2__tags">
+                <li data-i18n="exp_4_t1"></li><li data-i18n="exp_4_t2"></li><li data-i18n="exp_4_t3"></li>
+              </ul>
+            </div>
+            </article>
+          <article class="stack-card stack-card--expertise">
+            <div class="stack-card__visual stack-card__visual--illustration" aria-hidden="true">
+              <img class="expertise-card-v2__img" src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/expertise/exp-contract.png" alt="" width="1024" height="768" loading="lazy" decoding="async">
+            </div>
+          <div class="stack-card__body">
+              <p class="stack-card__eyebrow"><span class="stack-card__step-current">05</span><span class="stack-card__step-sep"> / </span><span class="stack-card__step-total">06</span></p>
+              <h3 class="stack-card__title expertise-card-v2__title" data-i18n="exp_5"></h3>
+              <p class="stack-card__text expertise-card-v2__text" data-i18n="exp_5_text"></p>
+              <ul class="expertise-card-v2__tags">
+                <li data-i18n="exp_5_t1"></li><li data-i18n="exp_5_t2"></li><li data-i18n="exp_5_t3"></li>
+              </ul>
+            </div>
+            </article>
+          <article class="stack-card stack-card--expertise">
+            <div class="stack-card__visual stack-card__visual--illustration" aria-hidden="true">
+              <img class="expertise-card-v2__img" src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/img/expertise/exp-analytics.png" alt="" width="1024" height="768" loading="lazy" decoding="async">
+            </div>
+          <div class="stack-card__body">
+              <p class="stack-card__eyebrow"><span class="stack-card__step-current">06</span><span class="stack-card__step-sep"> / </span><span class="stack-card__step-total">06</span></p>
+              <h3 class="stack-card__title expertise-card-v2__title" data-i18n="exp_6"></h3>
+              <p class="stack-card__text expertise-card-v2__text" data-i18n="exp_6_text"></p>
+              <ul class="expertise-card-v2__tags">
+                <li data-i18n="exp_6_t1"></li><li data-i18n="exp_6_t2"></li><li data-i18n="exp_6_t3"></li>
+              </ul>
+            </div>
+            </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt will-animate geo-section" id="geography" aria-labelledby="geo-heading">
+      <div class="container">
+        <header class="section-header">
+          <p class="block-eyebrow">
+            <span class="block-eyebrow__line" aria-hidden="true"></span>
+            <span class="block-eyebrow__index" data-i18n="sec05_index">[05]</span>
+            <span class="block-eyebrow__label" data-i18n="geo_eyebrow"></span>
+          </p>
+          <h2 id="geo-heading" class="section-title section-title--display" data-i18n-html="geo_title"></h2>
+          <p class="section-subtitle" data-i18n="geo_subtitle"></p>
+        </header>
+        <div class="map-container everest-globe-root" role="img" aria-label="World trade regions"></div>
+      </div>
+    </section>
+
+    <section class="section will-animate" id="cooperation">
+      <div class="container">
+        <header class="section-header section-header--compact">
+          <p class="block-eyebrow">
+            <span class="block-eyebrow__line" aria-hidden="true"></span>
+            <span class="block-eyebrow__index" data-i18n="sec06_index">[06]</span>
+            <span class="block-eyebrow__label" data-i18n="coop_eyebrow"></span>
+          </p>
+          <h2 class="section-title section-title--display" data-i18n-html="coop_title"></h2>
+          <p class="section-subtitle" data-i18n="coop_subtitle"></p>
+        </header>
+        <div class="coop-v2">
+          <article class="coop-v2__column">
+            <p class="coop-v2__track" data-i18n="coop_stack_1_eyebrow"></p>
+            <h3 class="coop-v2__heading" data-i18n="coop_buyers"></h3>
+            <p class="coop-v2__lead" data-i18n="coop_buyers_desc"></p>
+            <ul class="coop-v2__list">
+              <li class="coop-v2__item">
+                <span class="coop-v2__item-title" data-i18n="buyers_1_title"></span>
+                <span class="coop-v2__item-text" data-i18n="buyers_1_text"></span>
+              </li>
+              <li class="coop-v2__item">
+                <span class="coop-v2__item-title" data-i18n="buyers_2_title"></span>
+                <span class="coop-v2__item-text" data-i18n="buyers_2_text"></span>
+              </li>
+              <li class="coop-v2__item">
+                <span class="coop-v2__item-title" data-i18n="buyers_3_title"></span>
+                <span class="coop-v2__item-text" data-i18n="buyers_3_text"></span>
+              </li>
+              <li class="coop-v2__item">
+                <span class="coop-v2__item-title" data-i18n="buyers_4_title"></span>
+                <span class="coop-v2__item-text" data-i18n="buyers_4_text"></span>
+              </li>
+            </ul>
+          </article>
+          <article class="coop-v2__column">
+            <p class="coop-v2__track" data-i18n="coop_stack_2_eyebrow"></p>
+            <h3 class="coop-v2__heading" data-i18n="coop_producers"></h3>
+            <p class="coop-v2__lead" data-i18n="coop_producers_desc"></p>
+            <ul class="coop-v2__list">
+              <li class="coop-v2__item">
+                <span class="coop-v2__item-title" data-i18n="producers_1_title"></span>
+                <span class="coop-v2__item-text" data-i18n="producers_1_text"></span>
+              </li>
+              <li class="coop-v2__item">
+                <span class="coop-v2__item-title" data-i18n="producers_2_title"></span>
+                <span class="coop-v2__item-text" data-i18n="producers_2_text"></span>
+              </li>
+              <li class="coop-v2__item">
+                <span class="coop-v2__item-title" data-i18n="producers_3_title"></span>
+                <span class="coop-v2__item-text" data-i18n="producers_3_text"></span>
+              </li>
+              <li class="coop-v2__item">
+                <span class="coop-v2__item-title" data-i18n="producers_4_title"></span>
+                <span class="coop-v2__item-text" data-i18n="producers_4_text"></span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt will-animate cta" id="request">
+      <div class="container">
+        <div class="cta-grid">
+        <div class="cta-left">
+          <p class="block-eyebrow">
+            <span class="block-eyebrow__line" aria-hidden="true"></span>
+            <span class="block-eyebrow__index" data-i18n="sec07_index">[07]</span>
+            <span class="block-eyebrow__label" data-i18n="block_contact_eyebrow">Контакт</span>
+          </p>
+          <h2 class="cta-title" data-i18n-html="block_contact_title">Обсудим <em class="title-accent title-accent--blue">сделку.</em></h2>
+          <p class="cta-sub" data-i18n="block_contact_sub"></p>
+          <ul class="cta-meta">
+            <li>
+              <span class="cta-meta-label" data-i18n="contact_email_label"></span>
+              <a class="cta-meta-value" href="mailto:info@everestcentr.com" data-i18n="contact_email_value"></a>
+            </li>
+            <li>
+              <span class="cta-meta-label" data-i18n="contact_phone_label"></span>
+              <a class="cta-meta-value" href="tel:+74950000000" data-i18n="contact_phone_value"></a>
+            </li>
+            <li>
+              <span class="cta-meta-label" data-i18n="contact_offices_label"></span>
+              <span class="cta-meta-value" data-i18n="contact_offices_value"></span>
+            </li>
+          </ul>
+          <p class="cta-footnote" data-i18n="block_contact_footnote"></p>
+        </div>
+        <div class="cta-right">
+          <div class="cta-form-card">
+            <p class="cta-form-eyebrow cta-form-eyebrow--accent" data-i18n="block_form_eyebrow">Брифинг</p>
+            <p class="cta-form-title" data-i18n-html="block_form_title">Краткий <em>брифинг.</em></p>
+            <p class="rfq-modal-sub" data-i18n="block_form_sub"></p>
+            <form id="request-form" class="contact-form contact-form--block" novalidate>
+              <div class="form-honeypot"><input type="text" name="website_hp" tabindex="-1" autocomplete="off"></div>
+              <div class="contact-form-row">
+                <label class="contact-field">
+                  <span class="contact-field-label"><span data-i18n="firstname_label">Имя</span> <span class="contact-field-required" aria-hidden="true">*</span></span>
+                  <input class="contact-field-input" type="text" name="FirstName" required autocomplete="given-name" data-i18n-placeholder="ph_firstname">
+                </label>
+                <label class="contact-field">
+                  <span class="contact-field-label"><span data-i18n="lastname_label">Фамилия</span> <span class="contact-field-required" aria-hidden="true">*</span></span>
+                  <input class="contact-field-input" type="text" name="LastName" required autocomplete="family-name" data-i18n-placeholder="ph_lastname">
+                </label>
+              </div>
+              <label class="contact-field">
+                <span class="contact-field-label"><span data-i18n="email_label">Email</span> <span class="contact-field-required" aria-hidden="true">*</span></span>
+                <input class="contact-field-input" type="email" name="Email" required autocomplete="email" data-i18n-placeholder="ph_email">
+              </label>
+              <label class="contact-field">
+                <span class="contact-field-label"><span data-i18n="phone_label">Телефон</span> <span class="contact-field-required" aria-hidden="true">*</span></span>
+                <input class="contact-field-input" type="tel" name="Phone" required autocomplete="tel" data-i18n-placeholder="ph_phone">
+              </label>
+              <div class="contact-form-row">
+                <label class="contact-field">
+                  <span class="contact-field-label"><span data-i18n="company_label">Компания</span> <span class="contact-field-optional" data-i18n="label_optional">— optional</span></span>
+                  <input class="contact-field-input" type="text" name="Company" autocomplete="organization" data-i18n-placeholder="ph_company">
+                </label>
+                <label class="contact-field">
+                  <span class="contact-field-label"><span data-i18n="website_label">Сайт компании</span> <span class="contact-field-optional" data-i18n="label_optional">— optional</span></span>
+                  <input class="contact-field-input" type="url" name="Website" inputmode="url" data-i18n-placeholder="ph_website">
+                </label>
+              </div>
+              <label class="contact-field">
+                <span class="contact-field-label"><span data-i18n="message_label">Сообщение</span> <span class="contact-field-optional" data-i18n="label_optional">— optional</span></span>
+                <textarea class="contact-field-input contact-field-textarea" name="Message" rows="4" data-i18n-placeholder="ph_message"></textarea>
+              </label>
+              <label class="contact-checkbox">
+                <input type="checkbox" name="Consent" required>
+                <span data-i18n-html="consent_personal"></span>
+              </label>
+              <button type="submit" class="shiny-cta contact-form-submit">
+                <span data-i18n="submit_btn">Отправить запрос →</span>
+              </button>
+              <p class="form-status" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-shell">
+      <div class="footer-columns">
+          <div class="footer-col">
+            <h3 class="footer-col-title" data-i18n="footer_col_contact"></h3>
+            <ul class="footer-links">
+              <li><a href="mailto:info@everestcentr.com" data-i18n="contact_email_value"></a></li>
+              <li><a href="tel:+74950000000" data-i18n="contact_phone_value"></a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3 class="footer-col-title" data-i18n="footer_col_offices"></h3>
+            <p class="footer-text" data-i18n="contact_offices_value"></p>
+          </div>
+
+          <div class="footer-col">
+            <h3 class="footer-col-title" data-i18n="footer_col_sitemap"></h3>
+            <ul class="footer-links">
+              <li><a href="#about" data-i18n="footer_about"></a></li>
+              <li><a href="#sectors" data-i18n="footer_sectors"></a></li>
+              <li><a href="#geography" data-i18n="footer_geography"></a></li>
+              <li><a href="#cooperation" data-i18n="footer_cooperation"></a></li>
+              <li><a href="#request" data-i18n="footer_request"></a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col--legal">
+            <h3 class="footer-col-title" data-i18n="footer_legal"></h3>
+            <ul class="footer-links">
+              <li><a href="#privacy" data-i18n="footer_link_privacy"></a></li>
+              <li><a href="#terms" data-i18n="footer_link_terms"></a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3 class="footer-col-title" data-i18n="footer_col_social"></h3>
+            <ul class="footer-links">
+              <li>
+                <a href="#" class="footer-link-external" rel="noopener noreferrer" target="_blank">
+                  <span class="footer-link-text" data-i18n="footer_linkedin"></span>
+                  <span class="footer-link-arrow" aria-hidden="true">↗</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:info@everestcentr.com" class="footer-link-external">
+                  <span class="footer-link-text" data-i18n="footer_email"></span>
+                  <span class="footer-link-arrow" aria-hidden="true">↗</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© <span id="current-year"></span> Everest Trade · <span data-i18n="copyright"></span></p>
+        <div class="lang-switcher lang-switcher--segments lang-switcher--footer" role="group" data-aria-i18n="lang_aria">
+          <button type="button" class="lang-btn lang-switcher-btn active" data-lang="ru" aria-pressed="true" data-active="true">РУ</button>
+          <button type="button" class="lang-btn lang-switcher-btn" data-lang="en" aria-pressed="false">ENG</button>
+          <button type="button" class="lang-btn lang-switcher-btn" data-lang="zh" aria-pressed="false">中文</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-wordmark" aria-hidden="true">
+      <div class="container">
+        <span class="footer-wordmark-text">everest</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Everest Trade — scripts (also included in tilda/t123-single.html) -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/tilda/js/everest-i18n.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/tilda/js/everest-app.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/tilda/js/everest-hero-variants.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/everest-shell-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/everest-menu-roll.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/everest-wechat.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/everest-hero-glow.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/everest-hero-stars.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/everest-animations.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/everest-frosted-cards.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/everest-sector-cards.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/everest-stack-cards.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/everest-animations-v2.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/everest-globe.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_GITHUB_USER/everest-trade-web@main/assets/js/analytics-china.js"></script>
+
+<script>
+(function () {
+  function boot() {
+    if (window.EverestAnimationsInit) window.EverestAnimationsInit();
+    if (window.EverestSectorCardsInit) window.EverestSectorCardsInit();
+    if (window.EverestStackCardsInit) window.EverestStackCardsInit();
+    if (window.EverestAnimationsV2Init) window.EverestAnimationsV2Init();
+    if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
+</script>

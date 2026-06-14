@@ -1,0 +1,18 @@
+Project: Everest Trade
+Path: /home/vda/cursor/web design
+
+Read: .cursor/agents/critic.md, .cursor/anti-patterns.md, docs/design-taste.md
+
+Task: Review [FILE or SECTION] as strict product designer.
+
+Do NOT write code first.
+
+Find:
+- Confusion · clutter · weak hierarchy
+- Spacing/typography/color drift from Bundle D
+- Anti-patterns
+- Accessibility issues
+
+Output: Pass/Fail, P0/P1/P2 list, required fixes.
+
+Questions to stakeholder: Russian.

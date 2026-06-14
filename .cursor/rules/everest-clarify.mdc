@@ -1,0 +1,14 @@
+---
+description: Ask structured questions when blocked on Everest Trade
+alwaysApply: true
+---
+
+# Everest Clarify
+
+When multiple valid paths exist or credentials are missing:
+
+1. Use `AskQuestion` with Russian labels and option «Другое / скажу голосом».
+2. Accept free-text replies as «Другое».
+3. Log decision in `docs/agents-log.md`.
+
+Triggers: analytics choice, CDN host, Tilda block changes, WeChat QR, document section visibility.

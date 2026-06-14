@@ -1,0 +1,16 @@
+Project: Everest Trade
+Path: /home/vda/cursor/web design
+
+Read: .cursor/workflow.md, docs/qa-checklist.md
+
+Preview: http://localhost:8080/preview-v2.html
+
+Test:
+- Responsive 320 / 768 / 980 / 1200
+- RU / ENG / CHI switch
+- RFQ modal + #request form
+- Focus states, touch targets
+- prefers-reduced-motion
+- No console errors
+
+Report findings in docs/agents-log.md.

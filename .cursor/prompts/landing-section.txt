@@ -1,0 +1,26 @@
+Project: Everest Trade B2B landing
+Path: /home/vda/cursor/web design
+
+Read before work:
+- .cursor/cursor-rules.md
+- .cursor/project-context.md
+- docs/design-taste.md
+- docs/design-bundles.md (Bundle D active)
+
+Task: Create or improve landing section [NAME].
+
+Design:
+- Bundle D (Wibify dark)
+- One primary action per section
+- Typography hierarchy before decoration
+- Lucide/shadcn in ui-lab only; vanilla in Tilda
+
+Workflow:
+1. Plan structure (no code)
+2. Implement in preview-v2.html OR ui-lab/
+3. Self-critique + simplify
+4. Log docs/agents-log.md
+
+Do not touch embed-head/body/footer.html without approval.
+
+Verify: http://localhost:8080/preview-v2.html
