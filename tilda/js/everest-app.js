@@ -693,16 +693,8 @@
     var status = form.querySelector(".form-status");
     if (status) {
       status.textContent = "";
-      status.classList.remove("is-error", "is-success");
+      status.classList.remove("is-error", "is-success", "is-pending");
     }
-  }
-
-  function setFormStatus(form, message, type) {
-    var status = form.querySelector(".form-status");
-    if (!status) return;
-    status.textContent = message;
-    status.classList.toggle("is-error", type === "error");
-    status.classList.toggle("is-success", type === "success");
   }
 
   function markInvalidField(el) {
