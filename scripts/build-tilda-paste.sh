@@ -5,8 +5,8 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 USER="${1:?Usage: $0 GITHUB_USER [repo-name] [branch]}"
-REPO="${2:-everest-trade-web}"
-BRANCH="${3:-main}"
+REPO="${2:-everest}"
+BRANCH="${3:-$(git rev-parse --short HEAD 2>/dev/null || echo main)}"
 CDN="https://cdn.jsdelivr.net/gh/${USER}/${REPO}@${BRANCH}"
 
 HEAD_SRC="$ROOT/tilda/embed-head.html"
