@@ -2,6 +2,11 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Expertise img swap + sector tag alignment
+
+- **Decision:** Swapped expertise card images 1↔4 (`exp-deal` / `exp-finance`). Sector tag chips left-aligned with title (removed right padding on tag list, explicit flex-start). Globe untouched.
+- **Files:** `tilda/embed-body-v2.html`, `tilda/css/everest-site-v2.css`, paste/t123 rebuild, pushed to `main`.
+
 ## 2026-06-14 — Tilda deploy via GitHub CDN (no Tilda file storage)
 
 - **Decision:** Tilda removed file storage. All assets served from public GitHub repo via jsDelivr. Three T123 paste blocks: head / body / footer. Form integration paused (`tildaFormSelector: ""`).

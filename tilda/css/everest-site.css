@@ -1589,7 +1589,12 @@ html[lang="zh"] .everest-root .hero-title--display .hero-accent {
 
 /* No-JS / preview fallback: show content after paint */
 .everest-root .will-animate .container,
-.everest-root .will-animate-footer {
+.everest-root .will-animate-footer,
+.everest-root .hero--pending-reveal .hero-scene,
+.everest-root .hero--pending-reveal .hero-copy .block-eyebrow,
+.everest-root .hero--pending-reveal .hero-subtitle,
+.everest-root .hero--pending-reveal .hero-buttons,
+.everest-root .hero--pending-reveal .hero-title--whipped .hero-line {
   animation: everest-reveal-fallback 0.01s 2s forwards;
 }
 
@@ -1597,6 +1602,7 @@ html[lang="zh"] .everest-root .hero-title--display .hero-accent {
   to {
     opacity: 1;
     transform: none;
+    filter: none;
   }
 }
 
