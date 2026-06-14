@@ -2,6 +2,11 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Hero CTA: revert solid accent (user preference)
+
+- **Decision:** User rejected teal fill on hero «Отправить запрос» — restored default dark shiny CTA (same as before `54ea6d8`).
+- **Files:** `assets/css/everest-wibify-ui.css`
+
 ## 2026-06-14 — Hero CTA: solid accent fill
 
 - **Decision:** User flagged hero «Отправить запрос» too muted (dark grey shiny). Only `.hero-buttons .hero-cta.shiny-cta` → solid teal `#3D7F96` fill + glow; nav/form shiny CTAs unchanged.
