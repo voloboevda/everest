@@ -2,6 +2,11 @@
 
 Chronological decisions for Everest Trade web project.
 
+## 2026-06-14 — Expertise stack: no card shadow
+
+- **Decision:** User — stacked card shadows form ugly «ladder» on scroll in [04]. `box-shadow: none` on `.stack-cards--expertise .stack-card`; sticky stack unchanged.
+- **Files:** `tilda/css/everest-site-v2.css`
+
 ## 2026-06-14 — Captcha modal: wider card, more padding
 
 - **Decision:** User — captcha «plashechka» too tight; close X cramped. Card `22rem` → `32rem`; top padding + right reserve for close; close inset `1.25rem`; widget/iframe max `28rem`.

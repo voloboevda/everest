@@ -385,7 +385,7 @@
 .everest-root--v2 .stack-cards--expertise .stack-card {
   background: var(--expertise-card-bg);
   border-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
 }
 
 .everest-root--v2 .stack-cards--expertise .stack-card__visual,
